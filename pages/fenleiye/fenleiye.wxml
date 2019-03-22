@@ -1,0 +1,40 @@
+<view class='bg-img'>
+  <image src='../../images/j-i1.jpg'></image>
+</view>
+<view class='wp'>
+  <view class='share'>
+    <button open-type='share'>{{share}}</button>
+  </view>
+  <view class='info'>
+    <view class='btn'>
+      <view wx:for="{{mesbtn}}" wx:key="{{index}}" data-index='{{index}}' bindtap='showCategory'>
+        <navigator class='{{item.className}}' >
+          {{item.text}}
+        </navigator>
+      </view>
+    </view>
+    <view class='txt'>
+      {{words}}
+    </view>
+  </view>
+</view>
+<!-- <view class='nav-bottom'>
+ 
+    <block wx:for="{{bottomNav}}" wx:key="index">
+      <view class='item'>
+        <navigator>
+          <view wx:if="{{curNav==index}}" class='img'>
+            <image src='{{item.imgh}}'></image>
+          </view>
+          <view wx:else class='img'>
+            <image src='{{item.img}}'></image>
+          </view>
+
+          <view class="txt {{curNav==index?'on':'test'}}">
+            {{item.text}}
+          </view>
+        </navigator>
+      </view>
+    </block>
+  
+</view> -->

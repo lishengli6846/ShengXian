@@ -1,0 +1,108 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.6.2",
+	"appid": "wxedca117cbbf51cdc",
+	"projectname": "shengxian-wx",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 8,
+			"list": [
+				{
+					"id": -1,
+					"name": "分类页",
+					"pathName": "pages/fenleiye/fenleiye",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "帮助页",
+					"pathName": "pages/bangzhuye/bangzhuye",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "地址列表",
+					"pathName": "pages/dizhiliebiao/dizhiliebiao",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新增地址",
+					"pathName": "pages/xinzengdizhi/xinzengdizhi",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "确认订单",
+					"pathName": "pages/querendingdan/querendingdan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "搜索",
+					"pathName": "pages/sousuo/sousuo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "历史订单",
+					"pathName": "pages/lishidingdan/lishidingdan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/zhuye/zhuye",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "导航页",
+					"pathName": "pages/nav/nav",
+					"scene": null
+				}
+			]
+		}
+	}
+}

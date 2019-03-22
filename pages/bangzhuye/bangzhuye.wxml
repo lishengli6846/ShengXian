@@ -1,0 +1,13 @@
+<!--pages/bangzhuye/bangzhuye.wxml-->
+<textarea placeholder='文字说明' placeholder-class='plc-style' value='{{helpText}}'></textarea>
+<view class='tel'>
+  <block wx:for="{{tel}}">
+    <view class='tel'>
+      <view class='con'>
+        <view class='span'>{{item.name}}</view>
+        <view class='number' data-reply-phone="{{item.tel}}" bindtap='callPhone'>{{item.tel}}</view>
+      </view> 
+    </view>
+  </block>
+</view>
+<!-- <navigator class='back'>返回</navigator> -->

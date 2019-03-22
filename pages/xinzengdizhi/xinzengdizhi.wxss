@@ -1,0 +1,71 @@
+/* pages/xinzengdizhi/xinzengdizhi.wxss */
+page{
+  background: #F3F3F9;
+}
+.con{
+  padding: 0 20rpx;
+  background-color: #fff;
+}
+.item{
+  height: 104rpx;
+  line-height: 104rpx;
+  overflow: hidden;
+  border-bottom: 1rpx solid #E5E5E5;
+}
+.item text{
+  float: left;
+  font-size: 24rpx;
+  color: #888888;
+}
+.item input,
+.item textarea{
+  height: 64rpx;
+  line-height: 64rpx;
+  overflow: hidden;
+  margin-top: 24rpx;
+  font-size: 24rpx;
+}
+.item-map textarea{
+  width: 500rpx;
+  float: left;
+  margin-top: 20rpx;
+  border-right: 1px solid #E5E5E5;
+}
+.item-map .amap{
+  width: 30rpx;
+  height: 65rpx;
+  float: right;
+  background: none;
+  margin-top: 20rpx;
+  margin-right: 40rpx;
+}
+.item-map .amap image{
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
+}
+.item-map .amap::after{
+  border: none;
+}
+.btn-grop{
+  position: fixed;
+  bottom: 118rpx;
+  padding: 0 20px;
+  overflow: hidden;
+  text-align: cneter;
+}
+.btn-grop button{
+  display: inline-block;
+  width: 310rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 0 10rpx;
+  font-size: 24rpx;
+}
+.btn-grop .save{
+  background: #3275FD;
+  color: #fff;
+}
+.btn-grop .save::after{
+  border: none;
+}

@@ -1,0 +1,37 @@
+<!-- <view class="container">
+  <button bindtap='getLocation'>打开地图选择位置</button>
+  <view wx:if="{{address !=''}}">
+    <view>位置名称:{{name}}</view>
+    <view>详细地址:{{address}}</view>
+    <view>纬度:{{latitude}}</view>
+    <view>经度:{{longitude}}</view>
+  </view>
+</view> -->
+<form>
+  <view class='con'>
+    <view class='item'>
+      <text>收货人：</text>
+      <input value='{{name}}'></input>
+    </view>
+    <view class='item'>
+      <text>手机号：</text>
+      <input value='{{phone}}'></input>
+    </view>
+    <view class='item item-map'>
+      <text>省市区：</text>
+      <textarea  bindinput='modifyAddress' value=''></textarea>
+      <image src='../../images/j-p5.png' bindtap='getLocation' class='amap'></image>
+      <!-- <image src='../../images/j-p5.png' bindtap='getLocation></image> -->
+      <!-- <button class='amap'  style="background-image:url(../../images/j-p5.png);" bindtap='getLocation'>
+      </button> -->
+    </view>
+    <view class='item'>
+      <text>详细地址：</text>
+      <input value='{{address}}'></input>
+    </view>
+  </view>
+  <view class='btn-grop'>
+    <button form-type='submit' class='save'>保存</button>
+    <button class='cancle'>取消</button>
+  </view>
+</form>

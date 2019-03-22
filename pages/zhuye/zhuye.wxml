@@ -1,0 +1,92 @@
+<wxs module="util" src="../../utils/util.wxs"></wxs>
+
+<view class='top'>
+  <view class="search_arr">
+    <view class='search'>
+      <icon class="searchcion" size='16' type='search'></icon>
+      <input class="input" placeholder-class="place-holder" placeholder="海鲜水产"  />
+    </view>
+    <view class='user'>
+      <image src='../../images/j-p24.png'></image>
+    </view>
+  </view>
+  <view class='scroll-goods'>
+    <scroll-view scroll-y>
+      <view wx:for="{{goods}}"  wx:key="{{index}}" data-index='{{index}}' bindtap='setSelectedGood'>
+          <navigator>
+            <view class='item'>
+              <view class='con'>
+                <view class='pic'>
+                  <image src='{{item.picUrl}}'></image>
+                </view>
+                <view class='txt'>
+                  <view class='h3'>{{item.name}}</view>
+                  <view class='num'>{{item.price}}</view>
+                </view>
+              </view>
+            </view>
+          </navigator>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<view class='img-txt' wx:if="{{curGood!=null}}">
+  <navigator>
+    <view class='pic'>
+      <image src='{{curGood.picUrl}}'></image>
+    </view>
+    <view class='txt'>
+      <view class='h3'>{{curGood.name}}</view>
+      <view class='p'>{{curGood.note}}</view>
+      <view class='span'>规格：{{curGood.unit}}    价格：<text>¥ {{curGood.price}}</text> </view>
+    </view>
+  </navigator>
+</view>
+<view class='add-sub' wx:if="{{curGood!=null}}">
+  <view class='wrap'>
+    <view class='item left'>
+      数量
+      <text class='sub' bindtap='curNumPlus'>+</text>
+      <input type='text' value='{{curNum}}' bindconfirm="curNumEdited"></input>
+      <text bindtap='curNumReduce'>-</text>
+    </view>
+    <view class='item right'>
+      金额
+      <text class='sub' bindtap='curAmountPlus'>+</text>
+      <input type='text' value='{{util.formatMoney(curAmount)}}' bindconfirm='curAmountEdited'></input>
+      <text bindtap='curAmountReduce'>-</text>
+    </view>
+  </view>
+</view>
+<view class='check-good' wx:if="{{selectedGoods.length>0}}">
+  <view wx:for="{{selectedGoods}}" data-index='{{index}}'>
+    <view class='line'>
+      <view class='checks'>
+            <checkbox-group bindchange="selectedGoodCheckboxChange" data-index="{{index}}" >
+              <label>
+                  <checkbox checked="{{item.isChecked}}"></checkbox>
+              </label>   
+          </checkbox-group>
+        </view>
+      <text>{{item.name}}</text>
+      <text>价格￥{{item.price}}</text>
+      <text>数量{{item.num}}</text>
+      <text>金额￥{{util.formatMoney(item.money)}}</text>
+    </view>
+  </view>
+</view>
+<view class='bottom bottom2' wx:if="{{selectedGoods.length>0}}">
+      <view class='left'>
+        <!-- <view class='checks'>
+            <checkbox-group bindchange="checkboxChange" >
+              <label>
+                  <checkbox value="1"></checkbox>
+              </label>   
+          </checkbox-group>
+        </view> -->
+        <view class='text'>
+          总计 <text>￥{{util.calculateMoney(selectedGoods)}}元</text>
+        </view>
+      </view>
+      <button type='submit' value="提交订单" bindtap='onSubmit'>提交订单</button>
+    </view>

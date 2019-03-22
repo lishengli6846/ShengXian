@@ -1,0 +1,62 @@
+<view class='nav-top'>
+  <navigator class='on'>待处理</navigator>
+  <navigator>已完成</navigator>
+  <navigator>全部订单</navigator>
+</view>
+<view class='b-txt'>
+  <view class='item'>
+    <view class='info'>
+      <view class='line'>
+        <text class='tit'>订单单号：</text>
+        <text class='txt'>800606983538207</text>
+        <label class='copy'>复制</label>
+        <text class='status'>已完成</text>
+      </view>
+      <view class='line'>
+        <text class='tit'>下单时间：</text>
+        <text class='txt'>2019-03-06 13:53:56</text>
+      </view>
+      <view class='line'>
+        <text class='tit'>订单金额：</text>
+        <text class='txt' class='red'>￥207.00</text>
+      </view>
+      <view class='line'>
+        <text class='tit'>摘要：</text>
+        <text class='txt'>摘要内容摘要内容摘要内容摘要内容摘要内容</text>
+      </view>
+      <view class='line'>
+        <text class='tit'>配送地址：</text>
+        <text class='txt'>北京市海淀区西二旗珠江摩尔国际大厦3号楼</text>
+      </view>
+    </view>
+    <view class='a-grop'>
+        <navigator>取消配送</navigator>
+        <navigator>关闭订单</navigator>
+        <navigator class='buy'>再次购买</navigator>
+    </view>
+  </view>
+
+  <view class='item'>
+    <view class='info'>
+      <view class='line'>
+        <text class='tit'>订单单号：</text>
+        <text class='txt'>800606983538207</text>
+        <label class='copy'>复制</label>
+        <text class='status'>已完成</text>
+      </view>
+      <view class='line'>
+        <text class='tit'>下单时间：</text>
+        <text class='txt'>2019-03-06 13:53:56</text>
+      </view>
+      <view class='line'>
+        <text class='tit'>订单金额：</text>
+        <text class='txt' class='red'>￥207.00</text>
+      </view>
+    </view>
+    <view class='a-grop'>
+        <navigator>转为配送</navigator>
+    </view>
+  </view>
+</view>
+<navigator class='select-addr'>查看我的地址列表</navigator>
+<navigator class='help'>帮助</navigator>

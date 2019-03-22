@@ -1,0 +1,55 @@
+/* pages/bangzhuye/bangzhuye.wxss */
+page{
+  background-color: #F3F3F9;
+}
+textarea{
+  width: 100%;
+  height: 300rpx;
+  background-color: #fff;
+  padding: 40rpx 20rpx;
+  margin: 20rpx 0;
+  font-size: 24rpx;
+  box-sizing: border-box;
+}
+.plc-style{
+  font-size: 24rpx;
+  color: #888888;
+}
+.tel{
+  padding: 0 20rpx;
+  background-color: #fff;
+}
+.tel .con{
+  overflow: hidden;
+  height: 103rpx;
+  line-height: 103rpx;
+  font-size: 24rpx;
+  border-bottom:1px solid #E5E5E5;
+}
+.tel .tel:last-child .con{
+  border: none;
+}
+.tel .con .span{
+  float: left;
+  margin-right: 30rpx;
+  
+  color: #353535;
+}
+.tel .con .number{
+  overflow: hiden;
+  color: #3275fd;
+}
+.back{
+  position: fixed;
+  bottom: 118rpx;
+  width: 710rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  left: 50%;
+  margin-left: -355rpx;
+  /* margin: 0 20rpx; */
+  background: #3275FD;
+  color: #fff;
+  text-align: center;
+  border-radius: 5rpx;
+}

@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/fenleiye/fenleiye",
+    "pages/zhuye/zhuye",
+    "pages/logs/logs",
+    "pages/bangzhuye/bangzhuye",
+    "pages/dizhiliebiao/dizhiliebiao",
+    "pages/xinzengdizhi/xinzengdizhi",
+    "pages/querendingdan/querendingdan",
+    "pages/sousuo/sousuo",
+    "pages/lishidingdan/lishidingdan"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3275FD",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "tabBar": {
+    "backgroundcolor": "#fff",
+    "borderstyle": "white",
+    "color": "#a9b7b7",
+    "selectedColor": "#19e",
+    "list": [
+      {
+        "pagePath": "pages/zhuye/zhuye",
+        "text": "首页",
+        "iconPath": "images/j-p1.png",
+        "selectedIconPath": "images/j-p1h.png"
+      },
+      {
+        "pagePath": "pages/fenleiye/fenleiye",
+        "text": "分类",
+        "iconPath": "images/j-p2.png",
+        "selectedIconPath": "images/j-p2h.png"
+      },
+      {
+        "pagePath": "pages/bangzhuye/bangzhuye",
+        "text": "帮助",
+        "iconPath": "images/j-p3.png",
+        "selectedIconPath": "images/j-p3h.png"
+      },
+      {
+        "pagePath": "pages/lishidingdan/lishidingdan",
+        "text": "我的",
+        "iconPath": "images/j-p4.png",
+        "selectedIconPath": "images/j-p4h.png"
+      }
+    ]
+  }
+}

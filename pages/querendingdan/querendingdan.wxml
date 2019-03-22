@@ -1,0 +1,72 @@
+<view  class='order'>
+  <navigator url='/pages/dizhiliebiao/dizhiliebiao'>
+    <view class='con'>
+      <view class='l-top'>
+        <text class='name'>{{address.name}}</text>
+        <text class='tel'>{{address.tel}}</text>
+      </view>
+      <view class='address'>{{address.addr}}</view>
+      <image src='../../images/j-p7.png'></image>
+    </view>
+  </navigator>
+  <view class='txt-info'>
+    <view class='info'>
+      <text class='left'>{{order.number.tit}}</text>
+      <text class="right {{order.number.color==1?'on':''}}">{{order.number.val}}</text>
+    </view>
+    <view class='info'>
+      <text class='left'>{{order.time.tit}}</text>
+      <text class="right {{order.time.color==1?'on':''}}">{{order.time.val}}</text>
+    </view>
+    <view class='info'>
+      <text class='left'>{{order.status.tit}}</text>
+      <text class="right {{order.status.color==1?'on':''}}">{{order.status.txt}}</text>
+    </view>
+    <view class='info'>
+      <text class='left'>{{order.amount.tit}}</text>
+      <text class="right {{order.amount.color==1?'on':''}}">{{order.amount.val}}</text>
+    </view>
+  </view>
+</view>
+<view class='goods'>
+  <form>
+    <view class='item item-goods' wx:for="{{order.goods}}" data-index='{{index}}' bindtap='showGoodDetail'>
+      <block>
+        <view class='pic'>
+          <image src='{{item.picUrl}}'></image>
+        </view>
+        <view class='txt'>
+          <view class='h3'>{{item.name}}</view>
+          <text>规格：{{item.unit}}</text>
+          <text style='padding-left: 100rpx;'>单价：¥ {{item.price}}</text>
+          <text class='nums'>数量：{{item.num}}</text>
+        </view>
+      </block>
+    </view>
+    <view class='item item-help'>
+      <button class='btn-1' bindtap='onRemark'>留言</button>
+      <navigator url='/pages/bangzhuye/bangzhuye' open-type="switchTab">帮助</navigator>
+    </view>
+    <textarea focus='{{remarkFocus}}' placeholder-class='plc-area' placeholder='留言'>
+
+    </textarea>
+    <view class='bottom'>
+      <view class='left'>
+        <view class='checks'>
+            <checkbox-group bindchange="checkboxChange" >
+              <label>
+                  <checkbox value="1" checked='true'></checkbox>
+              </label>   
+          </checkbox-group>
+        </view>
+        <view class='text'>
+          总计 <text>￥207元</text>
+        </view>
+      </view>
+      <button type='submit' value="提交订单" bindtap='onSubmit'>提交订单</button>
+    </view>
+  </form>
+</view>
+
+
+

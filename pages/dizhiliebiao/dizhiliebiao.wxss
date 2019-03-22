@@ -1,0 +1,93 @@
+/* pages/dizhiliebiao/dizhiliebiao.wxss */
+.position-list{
+  font-size: 24rpx;
+  background-color: #f3f3f9;
+}
+.radio-group{
+  padding-top: 20rpx;
+  margin-bottom: 40rpx;
+}
+.position-list .addbag{
+  background-color: #fff;
+}
+.position-list .addbag{
+  overflow: hidden;
+  margin-bottom: 15rpx;
+  padding: 29rpx 20rpx;
+}
+.position{
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 28rpx;
+}
+.nametel{
+  margin-top: 20rpx;
+}
+.nametel .name{
+  float: left;
+  margin-right: 35rpx;
+}
+.addbag .check{
+  float: left;
+}
+.add-del{
+  float: right;
+}
+.add-del .add{
+  float: left;
+  margin-right: 35rpx;
+}
+.add-del .del{
+  float: left;
+}
+.add-del .add image{
+  float: left;
+  margin-right: 18rpx;
+  height: 32rpx;
+  width: 32rpx;
+  display: block;
+}
+.add-del .del image{
+  float: left;
+  margin-right: 18rpx;
+  height: 32rpx;
+  width: 32rpx;
+  display: block;
+}
+.navbtnposition{
+ padding: 0 20rpx;
+ margin-bottom: 30rpx;
+}
+
+.addposition{
+  width: 100%;
+  background-color: #3275fd;
+  color: #fff;
+  font-size: 24rpx;
+  height: 88rpx;
+  text-align: center;
+  line-height: 88rpx;
+  border-radius: 6rpx;
+}
+
+.check image{
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+}
+.check label{
+  position: relative;
+}
+.check label radio{
+  position: absolute;
+  left: -9999rpx;
+}
+.check .img2{
+  display: none;
+}
+.check label .on .img1{
+  display: none;
+}
+.check label .on .img2{
+  display: inline-block;
+}

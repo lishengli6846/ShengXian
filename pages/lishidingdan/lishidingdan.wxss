@@ -1,0 +1,99 @@
+/* pages/lishidingdan/lishidingdan.wxss */
+page{
+  background-color: #F3F3F9;
+}
+.nav-top{
+  padding: 0 20rpx;
+  height: 83rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E5E5E5;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+.nav-top navigator{
+  width: 120rpx;
+  text-align: center;
+  float: left;
+  font-size: 24rpx;
+  color: #353535;
+  height: 83rpx;
+  line-height: 83rpx;
+  border-bottom: 1px solid #E5E5E5;
+  box-sizing: border-box;
+} 
+.nav-top navigator.on{
+  color: #3275FD;
+  border-bottom-color: #3275FD;
+}
+.info{
+  font-size: 24rpx;
+  border-bottom: 1rpx solid #E5E5E5;
+}
+.b-txt .item{
+  padding: 30rpx 20rpx 0;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+.info .line{
+  margin-bottom: 20rpx;
+}
+.info .tit{
+  display: inline-block;
+  color: #888888;
+  width: 140rpx;
+  text-align: left;
+}
+.info .red{
+  color: #b61122;
+}
+.info .copy{
+  color: #3275fd;
+  margin-left: 70rpx;
+}
+.info .status{
+  float: right;
+  color: #3275fd;
+}
+.a-grop{
+  font-size: 0;
+  text-align: right;
+  padding: 20rpx 0;
+}
+.a-grop navigator{
+  width: 150rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  display: inline-block;
+  font-size: 22rpx;
+  color: #353535;
+  border: 1px solid #353535;
+  border-radius: 28rpx;
+  text-align: center;
+  margin-left: 20rpx;
+}
+.a-grop navigator.buy{
+  border-color: #FD8D32;
+  background: #FD8D32;
+  color: #fff;
+}
+.b-txt{
+  margin-bottom: 20rpx;
+}
+.select-addr{
+  width: 710rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #fff;
+  background: #3275FD;
+  font-size: 25rpx;
+  margin: 0 auto;
+  border-radius: 5rpx;
+  margin-bottom: 100rpx;
+}
+.help{
+  text-align: center;
+  font-size: 24rpx;
+  color: #3275fd;
+  text-decoration: underline;
+}
