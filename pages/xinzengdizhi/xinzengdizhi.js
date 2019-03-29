@@ -11,7 +11,10 @@ Page({
     address: '',
     latitude: '',
     longitude: '',
-    phone: ''
+    phone: '',
+    addressShengShiQu:'',
+    isEdit:false,
+    addressId:''
   },
 
   /**
@@ -21,11 +24,13 @@ Page({
     // console.log(options)
     if(options.edit == 'true'){
       this.setData({
-        name: app.tmp.address.name,
+        isEdit: true,
+        addressId: app.tmp.address.addressId,
+        name: app.tmp.address.consigneeName,
         address: app.tmp.address.address,
-        latitude: app.tmp.address.latitude,
-        longitude: app.tmp.address.longitude,
-        phone: app.tmp.address.phone
+        // latitude: app.tmp.address.latitude,  //TODO:服务器返回的地址暂无经纬度
+        // longitude: app.tmp.address.longitude,
+        phone: app.tmp.address.consigneePhone
       })
     }
   },
@@ -91,11 +96,17 @@ Page({
         var address = res.address
         var latitude = res.latitude
         var longitude = res.longitude
+        var shengshiqu ='';
+        if (address.indexOf('省') > 0) shengshiqu = address.substr(0, address.indexOf('省')+1)
+        if (address.indexOf('市') > 0) shengshiqu = address.substr(0, address.indexOf('市')+1)
+        if (address.indexOf('区') > 0) shengshiqu = address.substr(0, address.indexOf('区')+1)
+
         _this.setData({
           // name: name,
-          address: address,
+          address: address+name,
           latitude: latitude,
-          longitude: longitude
+          longitude: longitude,
+          addressShengShiQu: shengshiqu
         })
       }
     })
@@ -104,6 +115,32 @@ Page({
     this.setData({
       address: event.detail.value
     })
-  }
+  },
+  modifyName:function(e){this.setData({name:e.detail.value})},
+  modifyPhone: function (e) { this.setData({ phone: e.detail.value }) },
 
+  onSave: function(e){
+    var data = {
+      address: this.data.address,
+      administrativeDivisionId: 1,  //TODO:因服务器未完善，临时设置为1，该字段是省市区ID
+      consigneeName: this.data.name,
+      consigneePhone: this.data.phone,
+      latitude: this.data.latitude + "",
+      longitude: this.data.longitude + "",
+      openId: app.openid
+    };
+    if(this.data.isEdit){
+      data.addressId = this.data.addressId;
+    }
+    app.request('/customer/address/edit', 'post',data ,function(re){
+      console.log(re)
+      if(re.result){
+        wx.showToast({title:'保存成功'})
+        wx.navigateBack({ delta:1})
+      }
+    })
+  },
+  onCancel:function(e){wx.navigateBack({
+    delta:1
+  })}
 })

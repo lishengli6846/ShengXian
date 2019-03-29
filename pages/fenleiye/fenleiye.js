@@ -27,12 +27,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.redirectTo({
-      // url: '/pages/querendingdan/querendingdan',
+    wx.redirectTo({
+      // url: '/pages/zhuye/zhuye',
       // url: '/pages/nav/nav',
       // url: '/pages/dizhiliebiao/dizhiliebiao'
+      // url: '/pages/xinzengdizhi/xinzengdizhi'
       // url: '/pages/sousuo/sousuo'
-    // })
+    })
     app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
   },
 

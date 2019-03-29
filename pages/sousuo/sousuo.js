@@ -1,4 +1,6 @@
 // pages/sousuo/sousuo.js
+const app = getApp();
+
 Page({
 
   /**
@@ -22,7 +24,8 @@ Page({
       { key: '中华红脐橙子' },
       { key: '百香果' },
       { key: '洗衣液' },
-      ]
+      ],
+    keyword: ''
   },
 
   /**
@@ -30,6 +33,20 @@ Page({
    */
   onLoad: function (options) {
 
+  },
+
+  bindKeyInput(e) {
+    this.setData({
+      keyword: e.detail.value
+    })
+  },
+
+  onSearchTapped: function(e){
+    app.searchKeyword = this.data.keyword;
+    console.log(app.searchKeyword)
+    wx.switchTab({
+      url: '/pages/zhuye/zhuye',
+    })
   },
 
   /**

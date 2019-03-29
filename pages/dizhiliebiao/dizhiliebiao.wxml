@@ -3,8 +3,8 @@
   <radio-group class="radio-group">
       <view class="addbag" wx:for="{{position}}" wx:key="{{addressId}}">
         <view class="nametel">
-          <view class="name">{{item.name}}</view>
-          <view>{{item.phone}}</view>
+          <view class="name">{{item.consigneeName}}</view>
+          <view>{{item.consigneePhone}}</view>
         </view>
         <view class="position">{{item.address}}</view>
         <view clas="checkbox-del">
@@ -13,7 +13,7 @@
                 <view id="{{index}}" class="{{activeIndex == index ? 'on' : ''}}" bindtap="radioChange">
                   <image src='../../images/check.png' class='img1'></image>
                 <image src='../../images/check-on.png' class='img2'></image>
-                  <radio value="{{item.name}}" class="radiocheck" checked='{{item.checked}}' />  
+                  <radio value="{{item.addressId}}" class="radiocheck" checked='{{item.checked}}' />  
                   设为默认
                 </view>
               </label>

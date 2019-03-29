@@ -9,7 +9,7 @@
       <view class='line'>
         <text class='tit'>订单单号：</text>
         <text class='txt'>800606983538207</text>
-        <label class='copy'>复制</label>
+        <label class='copy' data-orderno='800606983538207' bindtap='onCopy'>复制</label>
         <text class='status'>已完成</text>
       </view>
       <view class='line'>
@@ -58,5 +58,5 @@
     </view>
   </view>
 </view>
-<navigator class='select-addr'>查看我的地址列表</navigator>
-<navigator class='help'>帮助</navigator>
+<navigator class='select-addr' url='../../pages/dizhiliebiao/dizhiliebiao'>查看我的地址列表</navigator>
+<navigator class='help' url='../../pages/bangzhuye/bangzhuye' open-type='switchTab'>帮助</navigator>

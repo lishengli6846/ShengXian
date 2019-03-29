@@ -2,6 +2,8 @@
 App({
   baseUrl: 'http://47.74.247.133:8083',
   openid: wx.getStorageSync('openid') || null,
+  searchKeyword: '',
+  sessionId: null,
   orderGoods:[],
   defaultAddress: { addressId: 1, name: "王某某", phone: "188***88888", address: "北京市海淀区西二旗珠江摩尔国际大厦3号楼"},
   tmp:{},
@@ -16,24 +18,41 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         // TODO:暂时缺少登录接口，设置临时openid=1
-        this.openid = 1;
-        console.log(res.code);return;
-        wx.request({
-          url: this.baseUrl + '/customer/user/miniprogram/loginwx',
-          data: {
-            code: res.code
-          },
-          success: function(re){
-            if(re.result){
-              this.openid = re.data;
-              wx.setStorage({
-                key: 'openid',
-                data: this.openid,
-              })
-              this.sendUserPosition();
+        // this.openid = 1;
+        console.log(res.code);
+        try{
+          var that = this;
+          wx.request({
+            url: this.baseUrl + '/customer/user/miniprogram/loginwx?code='+res.code,
+            data: {
+              code: res.code
+            },
+            header: {
+              contenttype: 'application/json'
+            },
+            method:'post',
+            success: function(re){
+              if(re.data.result){
+                that.openid = re.data.data.openId;
+                that.sessionId = re.data.data.sessionId;
+                console.log('openid:'+that.openid);
+                wx.setStorage({
+                  key: 'openid',
+                  data: that.openid,
+                })
+                that.sendUserPosition();
+              }else{
+                console.log(re);
+                wx.showToast({title:'自动登录失败',icon:'none'});          
+              }
+            },
+            fail: function(re){
+              console.log(re);
+              wx.showToast({title:'服务器无响应',icon:'none'});
             }
-          }
-        })
+          });
+        }catch(error){
+        }
       }
     })
     // 获取用户信息
@@ -58,6 +77,7 @@ App({
     })
   },
   sendUserPosition: function(){
+    var that = this;
     wx.getLocation({
       type: 'gcj02',
       success(res) {
@@ -66,8 +86,8 @@ App({
         const longitude = res.longitude
         const speed = res.speed
         const accuracy = res.accuracy
-        this.request('/customer/user/miniprogram/syncAddress','post',{
-          openId:this.openid,
+        that.request('/customer/user/miniprogram/syncAddress','post',{
+          openId:that.openid,
           longitude: longitude,
           latitude: latitude
         },function(){})
@@ -77,13 +97,27 @@ App({
   globalData: {
     userInfo: null
   },
-  request: function(url,method,data,callback){
+  request: function (url, method, data, callback, header ='application/json'){
+    //application/x-www-form-urlencoded
     wx.request({
       url: this.baseUrl + url,
       data: data,
       method: method,
+      header: { "content-type": header },
       success: function (re) {
+        if(re.error){
+          wx.showToast({title:'服务器返回错误'})
+          console.log('服务器返回错误：')
+          console.log(re)
+          return;
+        }
         callback(re.data);
+      },
+      fail: function(re){
+        wx.showToast({
+          title: '服务器无响应',
+          icon: 'none'
+        })
       }
     })
   }

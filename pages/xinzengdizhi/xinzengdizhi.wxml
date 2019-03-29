@@ -11,15 +11,15 @@
   <view class='con'>
     <view class='item'>
       <text>收货人：</text>
-      <input value='{{name}}'></input>
+      <input value='{{name}}' bindinput='modifyName'></input>
     </view>
     <view class='item'>
       <text>手机号：</text>
-      <input value='{{phone}}'></input>
+      <input value='{{phone}}' bindinput='modifyPhone'></input>
     </view>
     <view class='item item-map'>
       <text>省市区：</text>
-      <textarea  bindinput='modifyAddress' value=''></textarea>
+      <textarea  value='{{addressShengShiQu}}'></textarea>
       <image src='../../images/j-p5.png' bindtap='getLocation' class='amap'></image>
       <!-- <image src='../../images/j-p5.png' bindtap='getLocation></image> -->
       <!-- <button class='amap'  style="background-image:url(../../images/j-p5.png);" bindtap='getLocation'>
@@ -31,7 +31,7 @@
     </view>
   </view>
   <view class='btn-grop'>
-    <button form-type='submit' class='save'>保存</button>
-    <button class='cancle'>取消</button>
+    <button form-type='submit' class='save' bindtap='onSave'>保存</button>
+    <button class='cancle' bindtap='onCancel'>取消</button>
   </view>
 </form>

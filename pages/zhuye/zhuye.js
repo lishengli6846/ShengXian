@@ -12,23 +12,96 @@ Page({
     categoryId: 1,
     curGood:null,
     curNum: 0,
-    curAmount: 0
+    curAmount: 0,
+    scrollHeight: (wx.getSystemInfoSync().windowHeight+30)+'rpx',
+    needDelivery: true,
+    deliveryFee: 0
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.request('/customer/goods/list','post',{openId:app.openid,categoryId:this.data.categoryId},this.loadCategoryList)
+    wx.hideTabBar({
+    })
+
+  },
+
+  loadSearchResult: function(re){
+    var list=[];
+    console.log(re);
+    var that = this;
+    re.data.forEach(v => {
+      app.request('/customer/goods/detail', 'post', { goodsId: v.id }, function (r) {
+         list.push(r.data);
+         that.setData({ goods: list })
+      },'application/x-www-form-urlencoded')
+      });
   },
 
   loadCategoryList: function(re){
     if(re.result){
       //TODO:未引入分页功能，后台暂无分页参数
-      var list=[];
+      var list = [{
+        goodsId: 101,
+        picUrl: '../../images/j-i10.png',
+        name: '现货油桃500g',
+        price: '6.99'
+      }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }, {
+          goodsId: 101,
+          picUrl: '../../images/j-i10.png',
+          name: '现货油桃500g',
+          price: '6.99'
+        }];
       re.data.list.forEach(v=>{list.push(v)});
       this.setData({goods:list});
     }
+  },
+
+  deliveryCheckboxChange: function(e){
+    // console.log(e)
+    this.setData({ needDelivery: e.detail.value.length > 0})
+    
   },
 
   setSelectedGood: function(data){
@@ -42,7 +115,7 @@ Page({
         good.num=0;
         good.money=0;
       }
-      this.setData({curGood: good})
+      this.setData({curGood: good, scrollHeight:'550rpx'})
     }
   },
 
@@ -129,6 +202,8 @@ Page({
 
   onSubmit: function(){
     app.orderGoods = this.data.selectedGoods;
+
+
     wx.navigateTo({
       url: '/pages/querendingdan/querendingdan',
     })
@@ -145,7 +220,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (app.searchKeyword == '') {
+      app.request('/customer/goods/list', 'post', { openId: app.openid, categoryId: this.data.categoryId }, this.loadCategoryList)
+    } else {
+      app.request('/customer/goods/names', 'post', { openId: app.openid, names: app.searchKeyword }, this.loadSearchResult)
+    }
   },
 
   /**

@@ -62,5 +62,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onCopy: function(e){
+    console.log(e)
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.orderno,
+    })
   }
 })

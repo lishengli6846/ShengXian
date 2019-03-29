@@ -1,0 +1,80 @@
+/* pages/sousuo/sousuo.wxss */
+.search{
+  padding: 20rpx;
+ 
+  overflow: hidden;
+  border-bottom: 1px solid #E5E5E5;
+}
+.search .f-sear{
+  float: left;
+  position: relative;
+  overflow: hidden;
+
+}
+.search .f-sear .searchcion{
+  position: absolute;
+  top: 23rpx;
+  left: 19rpx;
+}
+.search input.inp{
+  width: 630rpx;
+  height: 86rpx;
+  background: #EDEDED;
+  border-radius: 10rpx;
+  padding: 0 10rpx 0 70rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.plc-inp{
+  font-size: 30rpx;
+  color: #888888;
+}
+.search .sub{
+  display: block;
+  overflow: hidden;
+  height: 86rpx;
+  line-height: 86rpx;
+  font-size: 30rpx;
+  text-align: cneter;
+  padding: 0;
+  background: #fff;
+}
+.search .sub::after{
+  border: none;
+}
+.tags{
+  padding: 29rpx 20rpx;
+}
+.tags .tit{
+  overflow: hidden;
+  margin-bottom: 30rpx;
+}
+.tags .tit text{
+  float: left;
+  font-size: 24rpx;
+  color: #666666;
+  margin-left: 20rpx;
+}
+.tags .tit image{
+  float: left;
+  width: 30rpx;
+  height: 30rpx;
+}
+.tags .tit .a-del{
+  float: right;
+}
+.tags .a-grop{
+  font-size: 0;
+}
+.tags .a-grop navigator{
+  display: inline-block;
+  height: 56rpx;
+  line-height: 56rpx;
+  background: #F4F4F4;
+  border-radius: 28rpx;
+  font-size: 22rpx;
+  color: #666;
+  padding: 0 40rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}

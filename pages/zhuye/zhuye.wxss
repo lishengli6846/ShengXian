@@ -1,7 +1,8 @@
 /* pages/zhuye/zhuye.wxss */
 .top{
   background: #B10D0C;
-  padding: 20rpx 0;
+  /* padding: 20rpx 0; */
+  padding: 14rpx 0 0;
 }
 .search_arr{
   padding: 0 20rpx;
@@ -9,31 +10,46 @@
 }
 .search_arr .search{
   float: left;
+  width: 610rpx;
   height: 42rpx;
   position: relative;
 }
-.search_arr .search input{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 610rpx;
+.search_arr .search .input{
+  margin: 0 auto;
+  width: 400rpx;
   height: 42rpx;
   background: #fff;
   z-index: 0;
   border-radius: 10rpx;
-  padding: 0 20rpx;
   font-size: 24rpx;
-}
-.place-holder{
-  padding-left: 300rpx;
-  font-size: 20rpx;
+  line-height: 42rpx;
   color: #888888;
+  overflow: hidden;
+  text-align: center;
+}
+.search_arr .search .input text{
+  line-height: 42rpx;
+  vertical-align: middle;
+}
+.search_arr .search .input .navigator-hover{
+  background: #fff;
+}
+.search_arr .search .input navigator{
+  height: 42rpx;
+  line-height: 42rpx;
+}
+.search_arr .con{
+  padding-left: 40rpx;
+  position: relative;
+  display: inline-block;
 }
 .search_arr icon{
+  margin-top: -16rpx;
+  display: inline-block;
+  vertical-align: middle;
   position: absolute;
-  z-index: 2;
-  left: 260rpx;
-  top: 10rpx;
+  left: 0;
+  top: 50%;
 }
 .search_arr .user{
   padding-top: 5rpx;
@@ -46,7 +62,8 @@
 }
 scroll-view{
   height: 550rpx;
-  padding-top: 20rpx;
+  padding-top: 0rpx;
+  /* padding-top: 20rpx; */
 }
 scroll-view .pic{
   border-top-left-radius: 15rpx;
@@ -59,7 +76,7 @@ scroll-view .pic{
   width: 165rpx;
   box-sizing: border-box;
   float: left;
-  padding: 10rpx;
+  padding: 2px 15rpx;
   margin: 0 5rpx;
 }
 .scroll-goods .item .con{
@@ -88,7 +105,7 @@ scroll-view .pic{
   white-space: nowrap;
 }
 .scroll-goods .item .num{
-  font-size: 22rpx;
+  font-size: 26rpx;
   color: #b61122;
   overflow: hidden;
 text-overflow:ellipsis;
@@ -124,11 +141,12 @@ white-space: nowrap;
   margin-bottom: 5rpx;
 }
 .img-txt .txt .span{
-  font-size: 22rpx;
+  font-size: 26rpx;
   color: #888;
 }
 .img-txt .txt .span text{
   color: #b61122;
+  /* font-size: 26rpx; */
 }
 .add-sub {
   overflow: hidden;
@@ -147,11 +165,14 @@ white-space: nowrap;
 .add-sub .item text{
   display: inline-block;
   vertical-align: middle;
-  width: 32rpx;
+  /* width: 32rpx;
   height: 32rpx;
-  line-height: 32rpx;
+  line-height: 32rpx; */
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   color: #fff;
-  font-size: 20rpx;
+  font-size: 40rpx;
   /* text-last-align: cneter; */
   text-align: center;
   border-radius: 50%;
@@ -166,9 +187,12 @@ white-space: nowrap;
   display: inline-block;
   vertical-align: middle;
   border: 1px solid #ccc;
-  width: 80rpx;
-  height: 32rpx;
-  min-height: 32rpx;
+  width: 160rpx;
+  /* height: 32rpx;
+  min-height: 32rpx; */
+  
+  height: 50rpx;
+  min-height: 50rpx;
   text-align: center;
   margin: 0 10rpx;
   font-size: 22rps;
@@ -238,6 +262,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
 }
 .bottom .left text{
   color: #b61122;
+  /* font-size: 28rpx; */
 }
 .bottom .left .txt{
   overflow: hidden;

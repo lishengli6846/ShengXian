@@ -1,10 +1,10 @@
 <view class='search'>
   <form>
     <view class='f-sear'>
-      <input class='inp' type='text' placeholder="海鲜水产" placeholder-class='plc-inp'></input>
+      <input class='inp' type='text' placeholder="海鲜水产" placeholder-class='plc-inp' bindinput="bindKeyInput"></input>
       <icon class="searchcion" size='20' type='search'></icon>
     </view>
-    <button class='sub'>搜索</button>
+    <button class='sub' bindtap='onSearchTapped'>搜索</button>
   </form>
 </view>
 <view class='tags'>
