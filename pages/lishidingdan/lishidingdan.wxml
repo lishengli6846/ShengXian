@@ -29,7 +29,7 @@
       </view>
       <view class='line'>
         <text class='tit'>配送地址：</text>
-        <text class='txt'>{{item.address}}</text>
+        <text class='txt'>{{item.address==null?"":item.address}}</text>
       </view>
     </view>
     <view class='a-grop'>

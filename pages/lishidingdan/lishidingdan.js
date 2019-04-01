@@ -8,7 +8,7 @@ Page({
    */
   data: {
     orderList:[],
-    pageNum:0,
+    pageNum:1,
     pageSize:10,
     total:0,
     curTab: 'doing'   //doing待处理 done已完成 close 关闭  all全部
@@ -32,29 +32,38 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.loadOrders();
+  },
+
+  loadOrders: function(){
     var that = this
-    app.request('/customer/order/list','post',{
-      search:{
-        openId:app.openid,
+    app.request('/customer/order/list', 'post', {
+      pageNum:this.data.pageNum,
+      pageSize: this.data.pageSize,
+      search: {
+        openId: app.openid,
         status: this.data.curTab
       }
-    },function(re){
-      if(re.result){
-        that.data.orderList=[];
-        re.data.list.forEach(v=>{
+    }, function (re) {
+      if (re.result) {
+        re.data.list.forEach(v => {
           that.data.orderList.push(v)
-          that.data.pageNum = re.data.pageNum
+          // that.data.pageNum = re.data.pageNum
           that.data.pageSize = re.data.pageSize
           that.data.total = re.data.total
         })
-        that.setData({orderList:that.data.orderList})
+        that.setData({ orderList: that.data.orderList })
       }
     })
   },
 
   reloadOrders: function(e){
-    this.setData({curTab: e.currentTarget.dataset.curTab})
-    this.onShow();  //调用onshow重新加载订单
+    this.data.orderList = [];
+    this.data.pageNum = 1
+    this.data.pageSize = 10
+    this.data.total = 0
+    this.setData({curTab: e.currentTarget.dataset.tab})
+    this.loadOrders();  
   },
 
   buyAgain: function(e){
@@ -144,7 +153,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if(this.data.pageNum * this.data.pageSize < this.data.total){
+      this.data.pageNum++;
+      this.loadOrders();
+    }
   },
 
   /**
