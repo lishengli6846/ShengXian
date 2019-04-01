@@ -9,8 +9,9 @@ Page({
   data: {
     orderList:[],
     pageNum:0,
-    pageSize:0,
-    total:0
+    pageSize:10,
+    total:0,
+    curTab: 'doing'   //doing待处理 done已完成 close 关闭  all全部
   },
 
   /**
@@ -31,19 +32,91 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this
     app.request('/customer/order/list','post',{
       search:{
-        openId:app.openid
+        openId:app.openid,
+        status: this.data.curTab
       }
     },function(re){
       if(re.result){
-        this.data.orderList=[];
+        that.data.orderList=[];
         re.data.list.forEach(v=>{
-          this.data.orderList.push(v)
-          this.data.pageNum = re.data.pageNum
+          that.data.orderList.push(v)
+          that.data.pageNum = re.data.pageNum
+          that.data.pageSize = re.data.pageSize
+          that.data.total = re.data.total
+        })
+        that.setData({orderList:that.data.orderList})
+      }
+    })
+  },
+
+  reloadOrders: function(e){
+    this.setData({curTab: e.currentTarget.dataset.curTab})
+    this.onShow();  //调用onshow重新加载订单
+  },
+
+  buyAgain: function(e){
+    var orderNo = e.currentTarget.dataset.orderNo
+    var that = this
+    
+    app.request('/customer/order/show','post',{
+      openId:app.openid,
+      orderNo:orderNo
+    },function(re){
+      if(re.result){
+        that.createAgainOrder(re.data)
+      }else{
+        wx.showToast({
+          title: '获取订单信息失败',
+          icon: 'none'
         })
       }
     })
+  },
+
+  createAgainOrder(data){
+
+    app.orderGoods = data.list;
+    app.orderDeliveryFee = data.deliveryCash;
+    app.orderNeedDelivery = data.deliveryCash>0;
+
+    wx.navigateTo({
+      url: '/pages/querendingdan/querendingdan',
+    })
+
+  },
+
+  closeOrder: function(e){
+    var orderNo = e.currentTarget.dataset.orderNo
+    var that = this
+    app.request('/customer/order/cancel','post',{
+      openId: app.openid,
+      orderNo: orderNo
+    },function(re){
+      if(re.result){
+        wx.showToast({
+          title: '订单已关闭',
+        })
+        that.updateOrderStatusByNo(orderNo, '700')
+      }else{
+        wx.showToast({
+          title: re.message,
+          icon: 'none'
+        })
+      }
+    })
+  },
+
+  updateOrderStatusByNo: function(orderNo,status){
+    for(var i=0;i<this.data.orderList.length;i++){
+      if(this.data.orderList[i].orderNo == orderNo){
+        this.data.orderList[i].orderStatus = status;
+        break;
+      }
+    }
+    this.setData({orderList:this.data.orderList})
   },
 
   /**
@@ -84,7 +157,7 @@ Page({
   onCopy: function(e){
     console.log(e)
     wx.setClipboardData({
-      data: e.currentTarget.dataset.orderno,
+      data: e.currentTarget.dataset.orderNo,
     })
   }
 })

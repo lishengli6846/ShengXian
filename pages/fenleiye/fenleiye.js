@@ -35,7 +35,8 @@ Page({
       // url: '/pages/sousuo/sousuo'
     // })
     wx.switchTab({
-      url: '/pages/zhuye/zhuye',
+      // url: '/pages/zhuye/zhuye',
+      url: '/pages/lishidingdan/lishidingdan',
     })
     app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
   },
