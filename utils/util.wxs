@@ -23,11 +23,16 @@ var calculateMoney = function(goods){
   for(var i=0;i<goods.length;i++){
     if(goods[i].isChecked) re+=goods[i].money;
   }
-  return formatMoney(re);
+  return re;
+}
+
+var calculateMoneyAndFormat = function(goods){
+  return formatMoney(calculateMoney(goods));
 }
 
 module.exports = {
   formatTime: formatTime,
   formatMoney: formatMoney,
-  calculateMoney: calculateMoney
+  calculateMoney: calculateMoney,
+  calculateMoneyAndFormat: calculateMoneyAndFormat
 }

@@ -107,9 +107,17 @@ App({
       success: function (re) {
         if(re.error){
           wx.showToast({title:'服务器返回错误'})
-          console.log('服务器返回错误：')
+          console.log('服务器返回错误：'+url)
           console.log(re)
           return;
+        }
+        if(re.data.result==false){
+          wx.showToast({
+            title: re.data.message,
+            icon: 'none'
+          })
+          console.log('提交失败:'+url)
+          console.log(re)
         }
         callback(re.data);
       },

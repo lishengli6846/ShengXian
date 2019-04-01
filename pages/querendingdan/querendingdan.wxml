@@ -30,7 +30,7 @@
 </view>
 <view class='goods'>
   <form>
-    <view class='item item-goods' wx:for="{{order.goods}}" data-index='{{index}}' bindtap='showGoodDetail'>
+    <view class='item item-goods' wx:for="{{goods}}" data-index='{{index}}' bindtap='showGoodDetail'>
       <block>
         <view class='pic'>
           <image src='{{item.picUrl}}'></image>
@@ -47,12 +47,12 @@
       <button class='btn-1' bindtap='onRemark'>留言</button>
       <navigator url='/pages/bangzhuye/bangzhuye' open-type="switchTab">帮助</navigator>
     </view>
-    <textarea focus='{{remarkFocus}}' placeholder-class='plc-area' placeholder='留言'>
+    <textarea focus='{{remarkFocus}}' bindinput='remarkInput' placeholder-class='plc-area' placeholder='留言'>
 
     </textarea>
     <view class='bottom'>
       <view class='left'>
-        <view class='checks'>
+        <view class='checks' wx:if="{{false}}">
             <checkbox-group bindchange="checkboxChange" >
               <label>
                   <checkbox value="1" checked='true'></checkbox>
@@ -63,7 +63,7 @@
           总计 <text>￥207元</text>
         </view>
       </view>
-      <button type='submit' value="提交订单" bindtap='onSubmit'>提交订单</button>
+      <button wx:if="{{false}}" type='submit' value="提交订单" bindtap='onSubmit'>提交订单</button>
     </view>
   </form>
 </view>

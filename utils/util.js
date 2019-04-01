@@ -18,7 +18,20 @@ const formatMoney = m =>{
   return m.toFixed(2);
 }
 
+const calculateMoney = function (goods) {
+  var re = 0;
+  for (var i = 0; i < goods.length; i++) {
+    if (goods[i].isChecked) re += goods[i].money;
+  }
+  return re;
+}
+
+const calculateMoneyAndFormat = function (goods) {
+  return formatMoney(calculateMoney(goods));
+}
+
 module.exports = {
   formatTime: formatTime,
-  formatMoney: formatMoney
+  formatMoney: formatMoney,
+  calculateMoneyAndFormat: calculateMoneyAndFormat
 }

@@ -1,11 +1,16 @@
 // pages/lishidingdan/lishidingdan.js
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    orderList:[],
+    pageNum:0,
+    pageSize:0,
+    total:0
   },
 
   /**
@@ -26,7 +31,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    app.request('/customer/order/list','post',{
+      search:{
+        openId:app.openid
+      }
+    },function(re){
+      if(re.result){
+        this.data.orderList=[];
+        re.data.list.forEach(v=>{
+          this.data.orderList.push(v)
+          this.data.pageNum = re.data.pageNum
+        })
+      }
+    })
   },
 
   /**

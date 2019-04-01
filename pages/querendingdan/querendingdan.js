@@ -1,5 +1,6 @@
 // pages/querendingdan/querendingdan.js
 const app = getApp();
+const util = require('../../utils/util.js')
 
 Page({
 
@@ -7,93 +8,196 @@ Page({
    * 页面的初始数据
    */
   data: {
-    needDelivery: true,
+    needDelivery: false,
     deliveryFee: 0,
-      address:{
-        id:1,
-        name:'王某某',
-        tel:'199****9999',
-        addr:'北京市海淀区西二旗珠江摩尔国际大厦3号楼'
-      },
-      order:{
-        number:{
-            tit:'订单单号',
-            val:'',
-            color: 0
-          },
-        time:{
-            tit:'下单时间',
-            val:'',
-            color: 0
-          },
-        status:{
-            tit:'订单状态',
-            txt:'待处理',
-            val:200,
-            color: 0
-          },
-        amount:{
-            tit:'订单金额',
-            val:'￥0.00',
-            color: 1
-          },
-        goods:[
-          {
-            goodsId:1,
-            name:"现货油桃5斤黄油桃新鲜孕妇水果大连特产桃子非水蜜桃黄桃蟠桃",
-            unit:'10kg/箱',
-            price: 69.00,
-            num:3,
-            picUrl:'../../images/j-i2.jpg'
-          },
-          {
-            goodsId:1,
-            name: "现货油桃5斤黄油桃新鲜孕妇水果大连特产桃子非水蜜桃黄桃蟠桃",
-            unit: '10kg/箱',
-            price: 69.00,
-            num: 3,
-            picUrl: '../../images/j-i2.jpg'
-          }
-        ],
-        remark:'',
-        deliveryId:0,
-        shopAddressId:0,
-      },
+    orderNo:'',
+    address:{
+      id:0,
+      name:'',
+      tel:'',
+      addr:''
+    },
+    order:{
+      number:{
+          tit:'订单单号',
+          val:'',
+          color: 0
+        },
+      time:{
+          tit:'下单时间',
+          val:'',
+          color: 0
+        },
+      status:{
+          tit:'订单状态',
+          txt:'',
+          val:200,
+          color: 0
+        },
+      amount:{
+          tit:'订单金额',
+          val:'',
+          color: 1
+        },
+      remark:'',
+      deliveryId:0,
+      shopAddressId:0,
+    },
+    goods: [
+      // {
+      //   goodsId:1,
+      //   name:"现货油桃5斤黄油桃新鲜孕妇水果大连特产桃子非水蜜桃黄桃蟠桃",
+      //   unit:'10kg/箱',
+      //   price: 69.00,
+      //   num:3,
+      //   picUrl:'../../images/j-i2.jpg'
+      // },
+      // {
+      //   goodsId:1,
+      //   name: "现货油桃5斤黄油桃新鲜孕妇水果大连特产桃子非水蜜桃黄桃蟠桃",
+      //   unit: '10kg/箱',
+      //   price: 69.00,
+      //   num: 3,
+      //   picUrl: '../../images/j-i2.jpg'
+      // }
+    ],
     remarkFocus: false
   },
 
   onLoad: function (options){
-    //TODO:等后台地址接口完成后，获取默认地址
+    wx.showLoading({
+      title: '正在处理',
+    })
+    //从全局参数取商品信息
     this.data.goods = app.orderGoods;
-    this.setData({order:this.data.order})
+    this.data.needDelivery = app.orderNeedDelivery;
+    this.data.deliveryFee = app.orderDeliveryFee;
+    this.setData({ goods: this.data.goods })
+    //获取默认地址
+    var that = this;
+    app.request('/customer/address/list', 'post', { pageNum: 1,pageSize:100, search: { openId: app.openid } }, function (re) {
+      console.log(re)
+      re.data.list.forEach(v => {
+        if (v.status == '10') { 
+          that.setData({ 
+              address:{
+                id: v.addressId,
+                name: v.consigneeName,
+                tel: v.consigneePhone,
+                addr: v.address
+              } 
+          })
+         }
+      });
+      if(that.data.address.id==0 && re.data.list.length>0){
+        that.setData({
+          address: {
+            id: re.data.list[0].addressId,
+            name: re.data.list[0].consigneeName,
+            tel: re.data.list[0].consigneePhone,
+            addr: re.data.list[0].address
+          }
+        })
+      }
+      
+      that.createOrder();
+    })
+  },
+
+  createOrder: function(){
+    //创建订单
+    var list = [];
+    var that = this;
+    this.data.goods.forEach(v => {
+      if (v.isChecked) {
+        list.push({
+          goodsId: v.goodsId,
+          num: v.num,
+          type: 'num'
+        })
+      }
+    })
+    app.request('/customer/order/create', 'post', {
+      deliveryId: this.data.address.id,
+      goodsList: list,
+      openId: app.openid
+    }, function (re) {
+      if (re.result) {
+        that.data.orderNo = re.data;
+        that.loadOrderDetail(re.data);  //data中的值是单号
+      } else {
+        wx.showToast({
+          title: re.message,
+          icon: 'none'
+        })
+      }
+      wx.hideLoading()
+    })
+
+    this.setData({ order: this.data.order })
+  },
+
+  loadOrderDetail:function(orderNo){
+    this.data.order.number.val = orderNo
+    this.data.order.time.val = util.formatTime(new Date())
+    this.data.order.status.txt = '下单成功'
+    this.data.order.amount.val = '￥'+ util.calculateMoneyAndFormat(this.data.goods)
+    this.setData({ 
+      order:this.data.order
+    })
   },
 
   onShow: function (e){
-    if (this.data.needDelivery) {
-      //goods info
-      var detail=[];
-      var that = this;
-      this.data.goods.forEach(v=>{
-        detail.push({ cash: v.price * v.num, goodsId: v.goodsId+'',num:v.num})
-      })
-      //request api
-      app.request('/customer/order/delivery/cash', 'post', {
-        addressId: this.data.address.id,
-        detail:detail,
-        openId:app.openid
-      }, function (e) {
-        console.log(e);
-        if(e.result){
-            that.setData({ deliveryFee: parseFloat(e.data)})
-          } 
-      })
-    } else {
-      this.data.deliveryFee = 0;
-    }
+    // 运费计算由首页完成
+    // if (this.data.needDelivery) {
+    //   //goods info
+    //   var detail=[];
+    //   var that = this;
+    //   this.data.goods.forEach(v=>{
+    //     detail.push({ cash: v.price * v.num, goodsId: v.goodsId+'',num:v.num})
+    //   })
+    //   //request api
+    //   app.request('/customer/order/delivery/cash', 'post', {
+    //     addressId: this.data.address.id,
+    //     detail:detail,
+    //     openId:app.openid
+    //   }, function (e) {
+    //     console.log(e);
+    //     if(e.result){
+    //         that.setData({ deliveryFee: parseFloat(e.data)})
+    //       } 
+    //   })
+    // } else {
+    //   this.data.deliveryFee = 0;
+    // }
+  },
+
+  remarkInput:function(e){
+    this.setData({remark:e.detail.value})
   },
 
   onRemark: function(){
-    this.setData({remarkFocus:true})
+    if(this.data.remark==''){
+      this.setData({remarkFocus:true})
+    }else{
+      app.request('/customer/order/postscript','post',{
+        openId:app.openid,
+        orderNo:this.data.orderNo,
+        remark:this.data.remark
+      },function(re){
+        if(re.result){
+          wx.showToast({
+            title: '留言成功',
+          })
+        }else{
+          wx.showToast({
+            title: re.message,
+            icon: 'none'
+          })
+        }
+      },
+      'application/x-www-form-urlencoded')
+    }
   },
 
   onHelp: function(){

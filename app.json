@@ -52,5 +52,6 @@
         "selectedIconPath": "images/j-p4h.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

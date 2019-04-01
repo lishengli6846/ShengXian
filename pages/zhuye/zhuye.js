@@ -13,9 +13,10 @@ Page({
     curGood:null,
     curNum: 0,
     curAmount: 0,
-    scrollHeight: (wx.getSystemInfoSync().windowHeight+30)+'rpx',
-    needDelivery: true,
-    deliveryFee: 0
+    scrollHeight: '600rpx',//(wx.getSystemInfoSync().windowHeight+30)+
+    needDelivery: false,
+    deliveryFee: 0,
+    allowDelivery: false
   },
   
   /**
@@ -24,7 +25,7 @@ Page({
   onLoad: function (options) {
     wx.hideTabBar({
     })
-
+console.log('scrollHeight:'+this.data.scrollHeight)
   },
 
   loadSearchResult: function(re){
@@ -42,7 +43,8 @@ Page({
   loadCategoryList: function(re){
     if(re.result){
       //TODO:未引入分页功能，后台暂无分页参数
-      var list = [{
+      var list = [
+        {
         goodsId: 101,
         picUrl: '../../images/j-i10.png',
         name: '现货油桃500g',
@@ -92,7 +94,8 @@ Page({
           picUrl: '../../images/j-i10.png',
           name: '现货油桃500g',
           price: '6.99'
-        }];
+        }
+        ];
       re.data.list.forEach(v=>{list.push(v)});
       this.setData({goods:list});
     }
@@ -115,8 +118,25 @@ Page({
         good.num=0;
         good.money=0;
       }
-      this.setData({curGood: good, scrollHeight:'550rpx'})
+      this.setData({curGood: good, scrollHeight:'480rpx'})
     }
+
+    //计算运费(目前只适配是否启用配送功能)
+    var detail = [];
+    var that = this;
+    this.data.selectedGoods.forEach(v => {
+      detail.push({ cash: v.price * v.num, goodsId: v.goodsId + '', num: v.num })
+    })
+    app.request('/customer/order/delivery/cash', 'post', {
+      addressId: 1,
+      detail: detail,
+      openId: app.openid
+    }, function (e) {
+      console.log(e);
+      if (e.result) {
+        that.setData({ allowDelivery: e.data.allow, deliveryFee: e.data.deliveryCash })
+      }
+    })
   },
 
   curNumPlus:function(){
@@ -201,8 +221,18 @@ Page({
   },
 
   onSubmit: function(){
+    console.log(this.data.selectedGoods)
     app.orderGoods = this.data.selectedGoods;
+    app.orderDeliveryFee = this.data.deliveryFee;
+    app.orderNeedDelivery = this.data.needDelivery;
 
+    if(this.data.selectedGoods.length==0){
+      wx.showToast({
+        title: '您尚未选择任何商品',
+        icon: 'none'
+      })
+      return;
+    }
 
     wx.navigateTo({
       url: '/pages/querendingdan/querendingdan',
@@ -231,7 +261,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    wx.showTabBar({
+      
+    })
   },
 
   /**

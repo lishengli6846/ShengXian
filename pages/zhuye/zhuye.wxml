@@ -14,9 +14,11 @@
         </navigator>
       </view>
     </view>
+    <navigator url='../../pages/lishidingdan/lishidingdan' open-type='switchTab'>
     <view class='user' style='height:23px;padding-top:2px;'>
       <image src='../../images/j-p24.png'></image>
     </view>
+    </navigator>
   </view>
   <view class='scroll-goods'>
     <scroll-view  scroll-y style='height:{{scrollHeight}};'>
@@ -24,12 +26,15 @@
           <navigator>
             <view class='item'>
               <view class='con'>
-                <view class='pic'>
-                  <image src='{{item.picUrl}}'></image>
+                <view class='txt'>
+                  <view class='num' style='text-align:center;'>¥ {{item.price}}</view>
+                </view>
+                <view class='pic' style='position:relative;'>
+                  <image src='{{item.picUrl!=""?item.picUrl:"../../images/j-i10.png"}}'></image>
+                  <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;background: #ffffff;line-height: 147rpx;opacity: 0.5;'></view>
+                  <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;line-height: 147rpx;'>{{item.subheading}}</view>
                 </view>
                 <view class='txt'>
-                  <view class='h3'>{{item.name}}</view>
-                  <view class='num'>¥ {{item.price}}</view>
                 </view>
               </view>
             </view>
@@ -83,18 +88,19 @@
     </view>
   </view>
 </view>
-<view class='bottom bottom2' wx:if="{{selectedGoods.length>0}}">
+<!-- selectedGoods.length>0 -->
+<view class='bottom bottom2' wx:if="{{true}}">
       <view class='left'>
         <view class='checks' style='width:100rpx;'>
             <checkbox-group bindchange="deliveryCheckboxChange" >
               <label>
-                  <text style='color:gray;padding-right:10rpx;'>配送</text><checkbox checked="{{needDelivery}}"></checkbox>
+                  <text style='color:gray;padding-right:10rpx;'>配送</text><checkbox disabled='{{!allowDelivery}}' checked="{{needDelivery}}"></checkbox>
               </label>   
           </checkbox-group>
         </view>
         <view class='text'>
-          总计 <text>￥{{util.calculateMoney(selectedGoods)}}元</text>
+          总计 <text>￥{{util.calculateMoneyAndFormat(selectedGoods)}}元</text>
         </view>
       </view>
-      <button type='submit' value="提交订单" bindtap='onSubmit'>下单</button>
+      <button type='button' value="提交订单" style='border-radius:0;' disabled='{{util.calculateMoney(selectedGoods)==0}}' bindtap='onSubmit'>下单</button>
     </view>
