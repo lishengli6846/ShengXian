@@ -8,7 +8,7 @@ Page({
    */
   data: {
     mesbtn:[
-      {className: 'color1',text:'全部'}
+      // {className: 'color1',text:'全部'}
       ],
         words:"海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、加工、饲料、兽药这几个行业，涉及海、淡水               两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、加工、饲料、兽药这几个行业，              涉及海、淡水两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、加工、饲料、兽                药 这几个行业，涉及海、淡水两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、               加工、饲料、兽药这几个行业，涉及海、淡水两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包                括 养殖、捕捞、",
          share: '分享'
@@ -35,7 +35,7 @@ Page({
       // url: '/pages/sousuo/sousuo'
     // })
     // wx.switchTab({
-    //   // url: '/pages/zhuye/zhuye',
+      // url: '/pages/zhuye/zhuye',
     //   url: '/pages/lishidingdan/lishidingdan',
     // })
     app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
@@ -44,6 +44,10 @@ Page({
 
   showCategory: function(data){
     console.log(data.currentTarget.dataset.index);
+    app.categoryId = this.data.mesbtn[data.currentTarget.dataset.index].id
+    wx.switchTab({
+      url: '/pages/zhuye/zhuye',
+    })
   },
 
   /**

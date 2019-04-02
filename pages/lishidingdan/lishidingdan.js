@@ -28,6 +28,12 @@ Page({
 
   },
 
+  openOrder: function(e){
+    wx.navigateTo({
+      url: '/pages/querendingdan/querendingdan?orderno='+e.currentTarget.dataset.orderno,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */

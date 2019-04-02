@@ -117,8 +117,11 @@ console.log('scrollHeight:'+this.data.scrollHeight)
         this.data.curAmount=0;
         good.num=0;
         good.money=0;
+      }else{
+        this.data.curNum = good.num
+        this.data.curAmount = good.money
       }
-      this.setData({curGood: good, scrollHeight:'480rpx'})
+      this.setData({curGood: good, curNum:this.data.curNum, curAmount:this.data.curAmount, scrollHeight:'480rpx'})
     }
 
     //计算运费(目前只适配是否启用配送功能)
@@ -251,9 +254,28 @@ console.log('scrollHeight:'+this.data.scrollHeight)
    */
   onShow: function () {
     if (app.searchKeyword == '') {
+      this.data.categoryId = app.categoryId
       app.request('/customer/goods/list', 'post', { openId: app.openid, categoryId: this.data.categoryId }, this.loadCategoryList)
     } else {
       app.request('/customer/goods/names', 'post', { openId: app.openid, names: app.searchKeyword }, this.loadSearchResult)
+      wx.getStorage({
+        key: 'recentSearches',
+        success: function (res) {
+          var data=[];
+          if (res != null && typeof res != "undefined"){
+            data = res.data
+          }
+          var has=false
+          for(var i=0;i<data.length;i++){if(data[i].name == app.searchKeyword){has = true; break;}}
+          if(has) return;
+          data.push({id:null, name:app.searchKeyword})
+          if(data.length>10){data.splice(0,1)}
+          wx.setStorage({
+            key: 'recentSearches',
+            data: data,
+          })
+        },
+      })
     }
   },
 

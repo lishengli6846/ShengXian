@@ -69,3 +69,15 @@ page{
 .btn-grop .save::after{
   border: none;
 }
+
+.bottom{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 20rpx;
+  background: #fff;
+  height: 98rpx;
+  line-height: 98rpx;
+  box-sizing: border-box;
+}

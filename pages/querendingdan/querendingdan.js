@@ -65,43 +65,89 @@ Page({
   },
 
   onLoad: function (options){
-    wx.showLoading({
-      title: '正在处理',
-    })
-    //从全局参数取商品信息
-    this.data.goods = app.orderGoods;
-    this.data.needDelivery = app.orderNeedDelivery;
-    this.data.deliveryFee = app.orderDeliveryFee;
-    this.setData({ goods: this.data.goods })
-    //获取默认地址
-    var that = this;
-    app.request('/customer/address/list', 'post', { pageNum: 1,pageSize:100, search: { openId: app.openid } }, function (re) {
-      console.log(re)
-      re.data.list.forEach(v => {
-        if (v.status == '10') { 
-          that.setData({ 
-              address:{
-                id: v.addressId,
-                name: v.consigneeName,
-                tel: v.consigneePhone,
-                addr: v.address
-              } 
+    if(options.orderno){
+      //加载指定订单
+      var that= this
+      app.request('/customer/order/show','post',{openId: app.openid, orderNo: options.orderno},function(re){
+        if(re.result){
+          that.setData({
+            orderNo: re.data.orderNo,
+            address:{
+              id:1,
+              name: re.data.consigneeName,
+              tel: re.data.consigneePhone,
+              addr: re.data.address
+            },
+            order:{
+              number: {
+                tit: '订单单号',
+                val: re.data.orderNo,
+                color: 0
+              },
+              time: {
+                tit: '下单时间',
+                val: re.data.createTime,
+                color: 0
+              },
+              status: {
+                tit: '订单状态',
+                txt: re.data.orderStatus == "100" ? "待处理" : (re.data.orderStatus == "600" ? "已完成" : (re.data.orderStatus == "700" ? "已关闭":"")),
+                val: 200,
+                color: 0
+              },
+              amount: {
+                tit: '订单金额',
+                val: re.data.goodsCash,
+                color: 1
+              },
+              remark: re.data.remark,
+              deliveryId: 0,
+              shopAddressId: 0,
+            },
+            goods: re.data.details
           })
-         }
-      });
-      if(that.data.address.id==0 && re.data.list.length>0){
-        that.setData({
-          address: {
-            id: re.data.list[0].addressId,
-            name: re.data.list[0].consigneeName,
-            tel: re.data.list[0].consigneePhone,
-            addr: re.data.list[0].address
+        }
+      },'application/x-www-form-urlencoded')
+    }
+    else{
+      wx.showLoading({
+        title: '正在处理',
+      })
+      //从全局参数取商品信息
+      this.data.goods = app.orderGoods;
+      this.data.needDelivery = app.orderNeedDelivery;
+      this.data.deliveryFee = app.orderDeliveryFee;
+      this.setData({ goods: this.data.goods })
+      //获取默认地址
+      var that = this;
+      app.request('/customer/address/list', 'post', { pageNum: 1,pageSize:100, search: { openId: app.openid } }, function (re) {
+        console.log(re)
+        re.data.list.forEach(v => {
+          if (v.status == '10') { 
+            that.setData({ 
+                address:{
+                  id: v.addressId,
+                  name: v.consigneeName,
+                  tel: v.consigneePhone,
+                  addr: v.address
+                } 
+            })
           }
-        })
-      }
-      
-      that.createOrder();
-    })
+        });
+        if(that.data.address.id==0 && re.data.list.length>0){
+          that.setData({
+            address: {
+              id: re.data.list[0].addressId,
+              name: re.data.list[0].consigneeName,
+              tel: re.data.list[0].consigneePhone,
+              addr: re.data.list[0].address
+            }
+          })
+        }
+        
+        that.createOrder();
+      })
+    }
   },
 
   createOrder: function(){

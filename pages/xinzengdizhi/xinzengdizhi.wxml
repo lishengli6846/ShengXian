@@ -19,7 +19,9 @@
     </view>
     <view class='item item-map'>
       <text>省市区：</text>
-      <textarea  value='{{addressShengShiQu}}'></textarea>
+      <picker bindchange='addressPickerChange' value='{{addressIndex}}' range='{{addressList}}' range-key='administrativeName'>
+        <textarea  value='{{addressShengShiQu}}'></textarea>
+      </picker>
       <image src='../../images/j-p5.png' bindtap='getLocation' class='amap'></image>
       <!-- <image src='../../images/j-p5.png' bindtap='getLocation></image> -->
       <!-- <button class='amap'  style="background-image:url(../../images/j-p5.png);" bindtap='getLocation'>
@@ -33,5 +35,7 @@
   <view class='btn-grop'>
     <button form-type='submit' class='save' bindtap='onSave'>保存</button>
     <button class='cancle' bindtap='onCancel'>取消</button>
+  </view>
+  <view>
   </view>
 </form>

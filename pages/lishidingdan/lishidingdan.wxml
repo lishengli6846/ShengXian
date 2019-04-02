@@ -4,12 +4,12 @@
   <navigator class='{{curTab=="all"?"on":""}}' data-tab="all" bindtap='reloadOrders'>全部订单</navigator>
 </view>
 <view class='b-txt'>
-  <view class='item' wx:for="{{orderList}}" wx:key="{{orderNo}}">
+  <view class='item' wx:for="{{orderList}}" wx:key="{{orderNo}}" bindtap='openOrder' data-orderno="{{item.orderNo}}">
     <view class='info'>
       <view class='line'>
         <text class='tit'>订单单号：</text>
         <text class='txt'>{{item.orderNo}}</text>
-        <label class='copy' data-orderNo='{{item.orderNo}}' bindtap='onCopy'>复制</label>
+        <label class='copy' data-orderno='{{item.orderNo}}' bindtap='onCopy'>复制</label>
         <text class='status' wx:if="{{item.orderStatus=='100'}}">待处理</text>
         <text class='status' wx:elif="{{item.orderStatus=='600'}}">已完成</text>
         <text class='status' wx:elif="{{item.orderStatus=='700'}}">已关闭</text>

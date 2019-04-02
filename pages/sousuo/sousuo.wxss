@@ -66,7 +66,7 @@
 .tags .a-grop{
   font-size: 0;
 }
-.tags .a-grop navigator{
+.tags .a-grop text{
   display: inline-block;
   height: 56rpx;
   line-height: 56rpx;

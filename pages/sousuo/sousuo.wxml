@@ -11,27 +11,15 @@
   <view class='item'>
     <view class='tit'> <image src='../../images/j-p11.png'></image> <text>最近搜索</text> <navigator class='a-del'> <image src='../../images/j-p13.png'></image> </navigator> </view>
     <view class='a-grop'>
-      <block wx:for="{{recentSearches}}" wx:key="key"><navigator url='../zhuye/zhuye?searchKey={{item.key}}'>{{item.key}}</navigator></block>
-      <!-- <navigator>海参</navigator>
-      <navigator>新鲜冷冻虾</navigator>
-      <navigator>野生鲜活大海螺</navigator>
-      <navigator>海南贵妃</navigator>
-      <navigator>中华红脐橙子</navigator>
-      <navigator>百香果</navigator>
-      <navigator>洗衣液</navigator> -->
+      <block wx:for="{{recentSearches}}" wx:key="name"><text data-key='{{item.name}}' bindtap='onTagTapped'>{{item.name}}</text></block>
+
     </view>
   </view>
   <view class='item'>
     <view class='tit'><image src='../../images/j-p12.png'></image> <text>热门搜索</text> <navigator class='a-del'></navigator> </view>
     <view class='a-grop'>
-      <block wx:for="{{hotSearches}}" wx:key="key"><navigator url='../zhuye/zhuye?searchKey={{item.key}}'>{{item.key}}</navigator></block>
-      <!-- <navigator>香精</navigator>
-      <navigator>新鲜冷冻虾</navigator>
-      <navigator>野生鲜活大海螺</navigator>
-      <navigator>海南贵妃</navigator>
-      <navigator>中华红脐橙子</navigator>
-      <navigator>百香果</navigator>
-      <navigator>洗衣液</navigator> -->
+      <block wx:for="{{hotSearches}}" wx:key="name"><text data-key='{{item.name}}' bindtap='onTagTapped'>{{item.name}}</text></block>
+
     </view>
   </view>
 </view>

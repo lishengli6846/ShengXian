@@ -14,7 +14,9 @@ Page({
     phone: '',
     addressShengShiQu:'',
     isEdit:false,
-    addressId:''
+    addressId:'',
+    addressList: [],
+    addressIndex:0
   },
 
   /**
@@ -33,6 +35,19 @@ Page({
         phone: app.tmp.address.consigneePhone
       })
     }
+
+    //加载地址列表
+    var that = this
+    app.request('/customer/address/administrative/list','post',{openId: app.openid},function(re){
+      if(re.result){
+        that.setData({addressList : re.data})
+      }
+    })
+  },
+
+  addressPickerChange: function(e){
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({ addressShengShiQu: this.data.addressList[e.detail.value].administrativeName})
   },
 
   /**
