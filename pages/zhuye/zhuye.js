@@ -44,57 +44,57 @@ console.log('scrollHeight:'+this.data.scrollHeight)
     if(re.result){
       //TODO:未引入分页功能，后台暂无分页参数
       var list = [
-        {
-        goodsId: 101,
-        picUrl: '../../images/j-i10.png',
-        name: '现货油桃500g',
-        price: '6.99'
-      }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }, {
-          goodsId: 101,
-          picUrl: '../../images/j-i10.png',
-          name: '现货油桃500g',
-          price: '6.99'
-        }
+      //   {
+      //   goodsId: 101,
+      //   picUrl: '../../images/j-i10.png',
+      //   name: '现货油桃500g',
+      //   price: '6.99'
+      // }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }, {
+      //     goodsId: 101,
+      //     picUrl: '../../images/j-i10.png',
+      //     name: '现货油桃500g',
+      //     price: '6.99'
+      //   }
         ];
       re.data.list.forEach(v=>{list.push(v)});
       this.setData({goods:list});
