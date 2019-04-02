@@ -50,7 +50,7 @@
     <textarea focus='{{remarkFocus}}' bindinput='remarkInput' placeholder-class='plc-area' placeholder='留言'>
 
     </textarea>
-    <view class='bottom'>
+    <view class='bottom' wx:if="{{false}}">
       <view class='left'>
         <view class='checks' wx:if="{{false}}">
             <checkbox-group bindchange="checkboxChange" >

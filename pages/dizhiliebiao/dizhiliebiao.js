@@ -41,7 +41,7 @@ Page({
     this.setData({
       activeIndex: index
     })
-    app.request('/customer/address/default', 'post', { openId: app.openid, addressId: this.data.position[index].addressId }, function (re) { }, 'application/x-www-form-urlencoded')
+    app.request('/customer/address/default', 'post', { openId: app.openid, addressId: this.data.position[index].addressId }, function (re) { })
   },
 
   deleteAddress: function(e){
@@ -53,7 +53,7 @@ Page({
       }
     }
     this.setData({position:this.data.position, activeIndex:-1})
-    app.request('/customer/address/delete', 'post', { openId: app.openid, addressId: addressId }, function () { },'application/x-www-form-urlencoded')
+    app.request('/customer/address/delete', 'post', { openId: app.openid, addressId: addressId }, function () { })
   },
 
   editAddress: function(e){

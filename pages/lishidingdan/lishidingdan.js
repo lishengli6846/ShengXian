@@ -98,7 +98,8 @@ Page({
   },
 
   closeOrder: function(e){
-    var orderNo = e.currentTarget.dataset.orderNo
+    var orderNo = e.currentTarget.dataset.orderno
+    console.log(e)
     var that = this
     app.request('/customer/order/cancel','post',{
       openId: app.openid,

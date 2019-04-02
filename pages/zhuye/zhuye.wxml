@@ -59,13 +59,13 @@
   <view class='wrap'>
     <view class='item left'>
       数量
-      <text class='sub' bindtap='curNumPlus'>+</text>
+      <text class='' bindtap='curNumPlus'>+</text>
       <input type='text' value='{{curNum}}' bindconfirm="curNumEdited"></input>
       <text bindtap='curNumReduce'>-</text>
     </view>
     <view class='item right'>
       金额
-      <text class='sub' bindtap='curAmountPlus'>+</text>
+      <text class='' bindtap='curAmountPlus'>+</text>
       <input type='text' value='{{util.formatMoney(curAmount)}}' bindconfirm='curAmountEdited'></input>
       <text bindtap='curAmountReduce'>-</text>
     </view>
@@ -83,8 +83,8 @@
         </view>
       <text>{{item.name}}</text>
       <text>价格￥{{item.price}}</text>
-      <text>数量{{item.num}}</text>
-      <text>金额￥{{util.formatMoney(item.money)}}</text>
+      <text>{{item.num}}</text>
+      <text>￥{{util.formatMoney(item.money)}}</text>
     </view>
   </view>
 </view>
@@ -99,8 +99,8 @@
           </checkbox-group>
         </view>
         <view class='text'>
-          总计 <text>￥{{util.calculateMoneyAndFormat(selectedGoods)}}元</text>
+          <!-- 总计  -->
         </view>
       </view>
-      <button type='button' value="提交订单" style='border-radius:0;' disabled='{{util.calculateMoney(selectedGoods)==0}}' bindtap='onSubmit'>下单</button>
+      <button type='button' value="提交订单" style='border-radius:0;' disabled='{{util.calculateMoney(selectedGoods)==0}}' bindtap='onSubmit'>下单<text>(￥{{util.calculateMoneyAndFormat(selectedGoods)}})</text></button>
     </view>

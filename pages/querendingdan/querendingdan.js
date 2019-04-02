@@ -177,7 +177,7 @@ Page({
   },
 
   onRemark: function(){
-    if(this.data.remark==''){
+    if(this.data.remark==null || this.data.remark==''){
       this.setData({remarkFocus:true})
     }else{
       app.request('/customer/order/postscript','post',{

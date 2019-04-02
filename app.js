@@ -103,7 +103,7 @@ App({
       url: this.baseUrl + url,
       data: data,
       method: method,
-      header: { "content-type": header },
+      header: { "content-type": header, "sessionId":this.sessionId },
       success: function (re) {
         if(re.error){
           wx.showToast({title:'服务器返回错误'})
