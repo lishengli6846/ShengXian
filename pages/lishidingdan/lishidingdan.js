@@ -73,7 +73,7 @@ Page({
   },
 
   buyAgain: function(e){
-    var orderNo = e.currentTarget.dataset.orderNo
+    var orderNo = e.currentTarget.dataset.orderno
     var that = this
     
     app.request('/customer/order/show','post',{
@@ -87,6 +87,18 @@ Page({
           title: '获取订单信息失败',
           icon: 'none'
         })
+      }
+    })
+  },
+
+  confirmDone:function(e){
+    var that = this
+    app.request('/customer/order/confirm','post',{openId:app.openid, orderNo:e.currentTarget.dataset.orderno},function(re){
+      if(re.result){
+        wx.showToast({
+          title: '确认成功',
+        })
+        that.updateOrderStatusByNo(e.currentTarget.dataset.orderno, '600')
       }
     })
   },
@@ -176,7 +188,7 @@ Page({
   onCopy: function(e){
     console.log(e)
     wx.setClipboardData({
-      data: e.currentTarget.dataset.orderNo,
+      data: e.currentTarget.dataset.orderno,
     })
   }
 })

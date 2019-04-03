@@ -43,11 +43,12 @@
 }
 .info .btn{
   float: left;
-  margin-right: 40rpx;
+  padding-right: 40rpx;
+  width:40%;
 }
 .info .btn navigator{
   display: block;
-  width: 335rpx;
+  width: 100%;
   height: 100rpx;
   line-height: 100rpx;
   text-align: center;
@@ -55,6 +56,7 @@
   margin-bottom: 40rpx;
   font-size: 24rpx;
   background-color: #FF6162;
+  border: 1px solid #ccc;
 }
 .info .btn navigator.color2{
   background-color: #F3B61D;
@@ -75,6 +77,8 @@
   overflow: hidden;
   line-height: 2;
   padding: 18rpx;
+  width: 45%;
+  float: right;
 }
 .nav-bottom{
   position: fixed;

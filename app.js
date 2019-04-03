@@ -5,7 +5,7 @@ App({
   searchKeyword: '',
   sessionId: null,
   orderGoods:[],
-  categoryId:1,
+  categoryId:-1,
   defaultAddress: { addressId: 1, name: "王某某", phone: "188***88888", address: "北京市海淀区西二旗珠江摩尔国际大厦3号楼"},
   tmp:{},
   onLaunch: function () {
@@ -13,6 +13,9 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+
+    wx.hideTabBar({
+    })
 
     // 登录
     wx.login({

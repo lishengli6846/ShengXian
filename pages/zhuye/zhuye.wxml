@@ -2,6 +2,13 @@
 
 <view class='top'>
   <view class="search_arr">
+    <view class='category'>
+      <picker bindchange="bindCategoryChange" value="{{categoryIndex}}" range="{{categorys}}" range-key='text'>
+        <view class="picker" style='font-size:24rpx;color:#fff;line-height:42rpx'>
+          {{categorys[categoryIndex].text}}
+        </view>
+      </picker>
+    </view>
     <view class='search'>
       <!-- <icon class="searchcion" size='16' type='search'>海鲜水产</icon> -->
       <!-- <input class="input" placeholder-class="place-holder" bindinput="searchhandle" value="{{searchtext}}" placeholder="海鲜水产"  /> -->
@@ -30,7 +37,7 @@
                   <view class='num' style='text-align:center;'>¥ {{item.price}}</view>
                 </view>
                 <view class='pic' style='position:relative;'>
-                  <image src='{{item.picUrl!=""?item.picUrl:"../../images/j-i10.png"}}'></image>
+                  <image src='{{(item.picUrl!=""&& item.picUrl!=null)?item.picUrl:"../../images/j-i10.png"}}'></image>
                   <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;background: #ffffff;line-height: 147rpx;opacity: 0.5;'></view>
                   <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;line-height: 147rpx;'>{{item.subheading}}</view>
                 </view>
@@ -39,6 +46,22 @@
               </view>
             </view>
           </navigator>
+      </view>
+      <!-- {{pageSize*pageNum<total}} 控制更多按钮显示-->
+      <view wx:if="{{true}}">
+        <navigator>
+          <view class='item' bindtap='loadNextPage'>
+            <view class="con">
+              <view class='txt'>
+                <view class='num' style='text-align:center;'>　</view>
+              </view>
+              <view class="pic" style='position:relative;'>
+                <image src='../../images/bgWhite.jpg'></image>
+                <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;line-height: 147rpx;'>更多</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
       </view>
     </scroll-view>
   </view>
@@ -61,13 +84,13 @@
       数量
       <text class='' bindtap='curNumPlus'>+</text>
       <input type='text' value='{{curNum}}' bindconfirm="curNumEdited"></input>
-      <text bindtap='curNumReduce'>-</text>
+      <text bindtap='curNumReduce' style='background:#f00;'>-</text>
     </view>
     <view class='item right'>
       金额
       <text class='' bindtap='curAmountPlus'>+</text>
       <input type='text' value='{{util.formatMoney(curAmount)}}' bindconfirm='curAmountEdited'></input>
-      <text bindtap='curAmountReduce'>-</text>
+      <text bindtap='curAmountReduce' style='background:#f00;'>-</text>
     </view>
   </view>
 </view>
@@ -82,7 +105,7 @@
           </checkbox-group>
         </view>
       <text>{{item.name}}</text>
-      <text>价格￥{{item.price}}</text>
+      <text>价格￥{{item.price}}/{{item.specifications}}</text>
       <text>{{item.num}}</text>
       <text>￥{{util.formatMoney(item.money)}}</text>
     </view>

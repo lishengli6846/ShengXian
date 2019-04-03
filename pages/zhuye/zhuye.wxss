@@ -2,15 +2,22 @@
 .top{
   background: #B10D0C;
   /* padding: 20rpx 0; */
-  padding: 14rpx 0 0;
+  padding: 0 0;
 }
 .search_arr{
-  padding: 0 20rpx;
+  padding: 14rpx 20rpx;
   overflow: hidden;
+  background: #ff5c5c;
+}
+.search_arr .category{
+  float:left;
+  width:150rpx;
+  height:42rpx;
+  position: relative;
 }
 .search_arr .search{
   float: left;
-  width: 610rpx;
+  width: 460rpx;
   height: 42rpx;
   position: relative;
 }
@@ -106,6 +113,7 @@ scroll-view .pic{
 }
 .scroll-goods .item .num{
   font-size: 26rpx;
+  line-height: 26rpx;
   color: #b61122;
   overflow: hidden;
 text-overflow:ellipsis;
@@ -247,7 +255,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 0 20rpx;
+  padding: 0 0rpx;
   background: #fff;
   height: 98rpx;
   line-height: 98rpx;
@@ -259,6 +267,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
 .bottom .left{
   font-size: 24rpx;
   color: #888888;
+  padding-left: 20rpx;
 }
 .bottom .left text{
   color: #b61122;
@@ -270,11 +279,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
 .bottom button{
   float: right;
   width: 350rpx;
-  height: 88rpx;
-  line-height: 88rpx;
+  height: 98rpx;
+  line-height: 98rpx;
   color: #fff;
   font-size: 24rpx;
-  margin-top: 5rpx;
+  /* margin-top: 5rpx; */
   background-color: #11B624;
 }
 .bottom button::after{

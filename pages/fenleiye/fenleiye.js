@@ -8,7 +8,7 @@ Page({
    */
   data: {
     mesbtn:[
-      // {className: 'color1',text:'全部'}
+      {className: 'color1',text:'全部',id:-1}
       ],
         words:"海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、加工、饲料、兽药这几个行业，涉及海、淡水               两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、加工、饲料、兽药这几个行业，              涉及海、淡水两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、加工、饲料、兽                药 这几个行业，涉及海、淡水两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包括养殖、捕捞、               加工、饲料、兽药这几个行业，涉及海、淡水两大水体环境。海鲜大体上指海水中的鱼、虾、蟹、贝、海藻这些，而水产是大的行业名词，包                括 养殖、捕捞、",
          share: '分享'
@@ -16,9 +16,9 @@ Page({
       },
 
   loadCategory: function (re) {
-    var mesbtn=[];
+    var mesbtn=this.data.mesbtn;
     for (var i = 0; i < re.data.length; i++) {
-      mesbtn.push({ className: 'color' + (i + 1), text: re.data[i].categoryName ,id:re.data[i].id});
+      mesbtn.push({ className: 'color' + (i + 2), text: re.data[i].categoryName ,id:re.data[i].id});
     }
     this.setData({mesbtn:mesbtn});
   },
@@ -34,10 +34,10 @@ Page({
       // url: '/pages/xinzengdizhi/xinzengdizhi'
       // url: '/pages/sousuo/sousuo'
     // })
-    // wx.switchTab({
+    wx.switchTab({
       // url: '/pages/zhuye/zhuye',
-    //   url: '/pages/lishidingdan/lishidingdan',
-    // })
+      url: '/pages/lishidingdan/lishidingdan',
+    })
     app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
   },
 
@@ -61,6 +61,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.hideTabBar({
+    })
 
   },
 
@@ -68,7 +70,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    // wx.showTabBar({
+      
+    // })
   },
 
   /**

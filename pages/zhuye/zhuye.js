@@ -9,28 +9,34 @@ Page({
   data: {
     goods:[],
     selectedGoods: [],
-    categoryId: 1,
+    categorys: [{ className: 'color1', text: '全部', id: -1 }],
+    categoryIndex:0,
+    categoryId: -1,
     curGood:null,
     curNum: 0,
     curAmount: 0,
     scrollHeight: '600rpx',//(wx.getSystemInfoSync().windowHeight+30)+
     needDelivery: false,
     deliveryFee: 0,
-    allowDelivery: false
+    allowDelivery: false,
+    pageNum:1,
+    pageSize:10,
+    total:0
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.hideTabBar({
-    })
-console.log('scrollHeight:'+this.data.scrollHeight)
+    console.log('scrollHeight:'+this.data.scrollHeight)
+    app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
+
   },
 
   loadSearchResult: function(re){
     var list=[];
     console.log(re);
+    this.setData({pageNum:1,pageSize:re.data.length,total:re.data.length})
     var that = this;
     re.data.forEach(v => {
       app.request('/customer/goods/detail', 'post', { goodsId: v.id }, function (r) {
@@ -40,65 +46,31 @@ console.log('scrollHeight:'+this.data.scrollHeight)
       });
   },
 
+  loadCategory: function (re) {
+    var mesbtn = this.data.categorys;
+    for (var i = 0; i < re.data.length; i++) {
+      mesbtn.push({ className: 'color' + (i + 2), text: re.data[i].categoryName, id: re.data[i].id });
+      if(re.data[i].id == app.categoryId){
+        this.data.categoryIndex = i;
+      }
+    }
+    this.setData({ categorys: mesbtn });
+  },
+
   loadCategoryList: function(re){
     if(re.result){
       //TODO:未引入分页功能，后台暂无分页参数
-      var list = [
-      //   {
-      //   goodsId: 101,
-      //   picUrl: '../../images/j-i10.png',
-      //   name: '现货油桃500g',
-      //   price: '6.99'
-      // }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }, {
-      //     goodsId: 101,
-      //     picUrl: '../../images/j-i10.png',
-      //     name: '现货油桃500g',
-      //     price: '6.99'
-      //   }
-        ];
+      var list = this.data.goods
       re.data.list.forEach(v=>{list.push(v)});
-      this.setData({goods:list});
+      this.setData({goods:list, pageNum:re.data.pageNum, pageSize:re.data.pageSize, total:re.data.total});
     }
+  },
+
+  bindCategoryChange:function(e){
+    app.categoryId = this.data.categorys[e.detail.value].id
+    app.searchKeyword=''
+    this.setData({categoryIndex:e.detail.value})
+    this.onShow();
   },
 
   deliveryCheckboxChange: function(e){
@@ -249,13 +221,28 @@ console.log('scrollHeight:'+this.data.scrollHeight)
 
   },
 
+  loadNextPage: function(){
+    this.data.pageNum++;
+    app.request('/customer/goods/list', 'post', {
+      openId: app.openid, categoryId: this.data.categoryId != -1 ? this.data.categoryId : null, pageNum: this.data.pageNum,
+      pageSize: this.data.pageSize
+    }, this.loadCategoryList)
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.hideTabBar({
+    })
     if (app.searchKeyword == '') {
+      //判断分类无变化且已有数据，不再重复加载
+      if(this.data.categoryId == app.categoryId && this.data.goods.length>0){return;}
       this.data.categoryId = app.categoryId
-      app.request('/customer/goods/list', 'post', { openId: app.openid, categoryId: this.data.categoryId }, this.loadCategoryList)
+      this.data.goods=[]  //clear goods data
+      app.request('/customer/goods/list', 'post', {
+        openId: app.openid, categoryId: this.data.categoryId != -1 ? this.data.categoryId : null, pageNum: this.data.pageNum,
+        pageSize: this.data.pageSize }, this.loadCategoryList)
     } else {
       app.request('/customer/goods/names', 'post', { openId: app.openid, names: app.searchKeyword }, this.loadSearchResult)
       wx.getStorage({
@@ -283,9 +270,9 @@ console.log('scrollHeight:'+this.data.scrollHeight)
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    wx.showTabBar({
+    // wx.showTabBar({
       
-    })
+    // })
   },
 
   /**

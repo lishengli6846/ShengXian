@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showRemarkBtn: true,
     needDelivery: false,
     deliveryFee: 0,
     orderNo:'',
@@ -42,6 +43,7 @@ Page({
       remark:'',
       deliveryId:0,
       shopAddressId:0,
+      orderStatus:'100'
     },
     goods: [
       // {
@@ -103,7 +105,9 @@ Page({
               remark: re.data.remark,
               deliveryId: 0,
               shopAddressId: 0,
+              orderStatus:re.data.orderStatus
             },
+            showRemarkBtn: (re.data.remark=='' || re.data.remark==null),
             goods: re.data.details
           })
         }
@@ -226,6 +230,7 @@ Page({
     if(this.data.remark==null || this.data.remark==''){
       this.setData({remarkFocus:true})
     }else{
+      var that = this
       app.request('/customer/order/postscript','post',{
         openId:app.openid,
         orderNo:this.data.orderNo,
@@ -235,6 +240,7 @@ Page({
           wx.showToast({
             title: '留言成功',
           })
+          that.setData({showRemarkBtn: false})
         }else{
           wx.showToast({
             title: re.message,

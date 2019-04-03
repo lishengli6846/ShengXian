@@ -178,3 +178,26 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
 .checks{
   width: 46rpx;
 }
+
+.shareButton{
+  width: 150rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  border-radius: 28rpx;
+  color: #fff;
+  font-size: 22rpx;
+  float: left;
+  background-color: #3275FD;
+}
+.select-addr{
+  width: 710rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #fff;
+  background: #3275FD;
+  font-size: 25rpx;
+  margin: 0 auto;
+  border-radius: 5rpx;
+  margin-bottom: 100rpx;
+}

@@ -4,8 +4,8 @@
   <navigator class='{{curTab=="all"?"on":""}}' data-tab="all" bindtap='reloadOrders'>全部订单</navigator>
 </view>
 <view class='b-txt'>
-  <view class='item' wx:for="{{orderList}}" wx:key="{{orderNo}}" bindtap='openOrder' data-orderno="{{item.orderNo}}">
-    <view class='info'>
+  <view class='item' wx:for="{{orderList}}" wx:key="{{orderNo}}" >
+    <view class='info' bindtap='openOrder' data-orderno="{{item.orderNo}}">
       <view class='line'>
         <text class='tit'>订单单号：</text>
         <text class='txt'>{{item.orderNo}}</text>
@@ -36,6 +36,7 @@
         <navigator wx:if="{{false}}">取消配送</navigator>
         <navigator wx:if="{{false}}">转为配送</navigator>
         <navigator wx:if="{{item.orderStatus=='100'}}" bindtap='closeOrder' data-orderNo="{{item.orderNo}}">关闭订单</navigator>
+        <navigator wx:if="{{item.orderStatus!='600' && item.orderStatus!='700'}}" bindtap='confirmDone' data-orderNo="{{item.orderNo}}">确认完成</navigator>
         <navigator class='buy' bindtap='buyAgain' data-orderNo="{{item.orderNo}}">再次购买</navigator>
     </view>
   </view>

@@ -1,5 +1,5 @@
 <view  class='order'>
-  <navigator url='/pages/dizhiliebiao/dizhiliebiao'>
+  <navigator url='/pages/dizhiliebiao/dizhiliebiao' wx:if="{{order.orderStatus=='200'}}">
     <view class='con'>
       <view class='l-top'>
         <text class='name'>{{address.name}}</text>
@@ -44,10 +44,10 @@
       </block>
     </view>
     <view class='item item-help'>
-      <button class='btn-1' bindtap='onRemark'>留言</button>
+      <button class='shareButton' wx:if="{{showRemarkBtn}}" bindtap='onRemark'>留言</button>
       <navigator url='/pages/bangzhuye/bangzhuye' open-type="switchTab">帮助</navigator>
     </view>
-    <textarea focus='{{remarkFocus}}' bindinput='remarkInput' placeholder-class='plc-area' placeholder='留言'>
+    <textarea focus='{{remarkFocus}}' bindinput='remarkInput' value='{{order.remark}}' placeholder-class='plc-area' placeholder='留言'>
 
     </textarea>
     <view class='bottom' wx:if="{{false}}">
@@ -67,6 +67,7 @@
     </view>
   </form>
 </view>
+<navigator class='select-addr' url='../../pages/lishidingdan/lishidingdan' open-type='switchTab'>我的订单列表</navigator>
 
 
 
