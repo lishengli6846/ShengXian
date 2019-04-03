@@ -88,7 +88,7 @@ Page({
           icon: 'none'
         })
       }
-    })
+      },'application/x-www-form-urlencoded')
   },
 
   confirmDone:function(e){
@@ -104,8 +104,8 @@ Page({
   },
 
   createAgainOrder(data){
-
-    app.orderGoods = data.list;
+    data.details.forEach(v => { v.isChecked = true})
+    app.orderGoods = data.details;
     app.orderDeliveryFee = data.deliveryCash;
     app.orderNeedDelivery = data.deliveryCash>0;
 

@@ -34,10 +34,10 @@ Page({
       // url: '/pages/xinzengdizhi/xinzengdizhi'
       // url: '/pages/sousuo/sousuo'
     // })
-    wx.switchTab({
+    // wx.switchTab({
       // url: '/pages/zhuye/zhuye',
-      url: '/pages/lishidingdan/lishidingdan',
-    })
+      // url: '/pages/lishidingdan/lishidingdan',
+    // })
     app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
   },
 

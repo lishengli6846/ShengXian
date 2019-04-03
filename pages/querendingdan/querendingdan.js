@@ -121,7 +121,7 @@ Page({
       this.data.goods = app.orderGoods;
       this.data.needDelivery = app.orderNeedDelivery;
       this.data.deliveryFee = app.orderDeliveryFee;
-      this.setData({ goods: this.data.goods })
+      this.setData({ goods: app.orderGoods })
       //获取默认地址
       var that = this;
       app.request('/customer/address/list', 'post', { pageNum: 1,pageSize:100, search: { openId: app.openid } }, function (re) {
