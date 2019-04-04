@@ -28,8 +28,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('scrollHeight:'+this.data.scrollHeight)
+    //console.log('scrollHeight:'+this.data.scrollHeight)
     app.request('/customer/goods/category/list', 'post', {}, this.loadCategory)
+    //console.log(app.defaultAddress)
 
   },
 
@@ -209,11 +210,24 @@ Page({
       return;
     }
 
+    
+
+    if (!app.defaultAddress.phone) {
+      wx.showToast({
+        title: '您未绑定手机号！请设置默认地址并绑定手机号',
+        icon: 'none'
+      })
+      return;
+    }
     wx.navigateTo({
       url: '/pages/querendingdan/querendingdan',
     })
   },
-
+  godd:function(){
+    wx.switchTab({
+      url: '/pages/lishidingdan/lishidingdan',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -265,7 +279,13 @@ Page({
       })
     }
   },
-
+  //获取手机号 后下单
+  getPhoneNumber(e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
+    this.onSubmit();
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

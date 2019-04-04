@@ -2,6 +2,9 @@
 page{
   background-color: #F3F3F9;
 }
+
+.head { padding:30px 10px 10px; background: #3275FD; font-size:14px; color:#fff;}
+
 .nav-top{
   padding: 0 20rpx;
   height: 83rpx;

@@ -6,7 +6,7 @@ App({
   sessionId: null,
   orderGoods:[],
   categoryId:-1,
-  defaultAddress: { addressId: 1, name: "王某某", phone: "188***88888", address: "北京市海淀区西二旗珠江摩尔国际大厦3号楼"},
+  defaultAddress: { addressId: -1, name: "", phone: "", address: ""},
   tmp:{},
   onLaunch: function () {
     // 展示本地存储能力
@@ -78,6 +78,21 @@ App({
           })
         }
       }
+    })
+    //获取默认地址
+    var that = this;
+    this.request('/customer/address/list', 'post', { pageNum: 1, pageSize: 100, search: { openId: this.openid } }, function (re) {
+      console.log(re)
+      re.data.list.forEach(v => {
+        if (v.status == '10') {
+          that.defaultAddress = {
+            addressId: v.addressId,
+            name: v.consigneeName,
+            phone: v.consigneePhone,
+            address: v.address
+          }
+        }
+      });
     })
   },
   sendUserPosition: function(){

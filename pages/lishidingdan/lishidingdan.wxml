@@ -1,3 +1,8 @@
+        <navigator url="../../pages/zhuye/zhuye" open-type="switchTab">
+          <view class="head">
+            <text>返回</text>
+          </view>
+        </navigator>
 <view class='nav-top'>
   <navigator class='{{curTab=="doing"?"on":""}}' data-tab="doing" bindtap='reloadOrders'>待处理</navigator>
   <navigator class='{{curTab=="done"?"on":""}}' data-tab="done" bindtap='reloadOrders'>已完成</navigator>
@@ -27,7 +32,7 @@
         <text class='tit'>摘要：</text>
         <text class='txt'>{{item.note}}</text>
       </view>
-      <view class='line'>
+      <view class='line' wx:if="{{item.deliveryCash}}">
         <text class='tit'>配送地址：</text>
         <text class='txt'>{{item.address==null?"":item.address}}</text>
       </view>

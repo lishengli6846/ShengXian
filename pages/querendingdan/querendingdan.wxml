@@ -1,5 +1,5 @@
 <view  class='order'>
-  <navigator url='/pages/dizhiliebiao/dizhiliebiao' wx:if="{{order.orderStatus=='200'}}">
+  <navigator url='/pages/dizhiliebiao/dizhiliebiao' wx:if="{{order.orderStatus=='200' || order.deliverCash>0}}">
     <view class='con'>
       <view class='l-top'>
         <text class='name'>{{address.name}}</text>

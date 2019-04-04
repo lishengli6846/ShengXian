@@ -43,7 +43,8 @@ Page({
       remark:'',
       deliveryId:0,
       shopAddressId:0,
-      orderStatus:'100'
+      orderStatus:'100',
+      deliveryCash:0
     },
     goods: [
       // {
@@ -105,7 +106,8 @@ Page({
               remark: re.data.remark,
               deliveryId: 0,
               shopAddressId: 0,
-              orderStatus:re.data.orderStatus
+              orderStatus:re.data.orderStatus,
+              deliveryCash: re.data.deliveryCash
             },
             showRemarkBtn: (re.data.remark=='' || re.data.remark==null),
             goods: re.data.details

@@ -41,6 +41,12 @@ Page({
     this.setData({
       activeIndex: index
     })
+    app.defaultAddress = {
+      addressId: this.data.position[index].addressId,
+      name: this.data.position[index].consigneeName,
+      phone: this.data.position[index].consigneePhone,
+      address: this.data.position[index].address
+    }
     app.request('/customer/address/default', 'post', { openId: app.openid, addressId: this.data.position[index].addressId }, function (re) { })
   },
 

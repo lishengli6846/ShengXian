@@ -21,11 +21,14 @@
         </navigator>
       </view>
     </view>
-    <navigator url='../../pages/lishidingdan/lishidingdan' open-type='switchTab'>
+    <!-- <navigator url='../../pages/lishidingdan/lishidingdan' open-type='navigate' bindtap="godd">
     <view class='user' style='height:23px;padding-top:2px;'>
       <image src='../../images/j-p24.png'></image>
     </view>
-    </navigator>
+    </navigator> -->
+    <view class='user' style='height:23px;padding-top:2px;'  bindtap="godd">
+      <image src='../../images/j-p24.png'></image>
+    </view>
   </view>
   <view class='scroll-goods'>
     <scroll-view  scroll-y style='height:{{scrollHeight}};'>
@@ -37,7 +40,7 @@
                   <view class='num' style='text-align:center;'>¥ {{item.price}}</view>
                 </view>
                 <view class='pic' style='position:relative;'>
-                  <image src='{{(item.picUrl!=""&& item.picUrl!=null)?item.picUrl:"../../images/j-i10.png"}}'></image>
+                  <image src='{{(item.picUrl!=""&& item.picUrl!=null)?item.picUrl:"../../images/nopic.jpg"}}'></image>
                   <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;background: #ffffff;line-height: 147rpx;opacity: 0.5;'></view>
                   <view class='h3' style='position: absolute;top: 0rpx;width: 160rpx;text-align: center;height: 147rpx;line-height: 147rpx;'>{{item.subheading}}</view>
                 </view>
@@ -69,12 +72,16 @@
 <view class='img-txt' wx:if="{{curGood!=null}}">
   <navigator>
     <view class='pic'>
-      <image src='{{curGood.picUrl}}'></image>
+      <image src='{{(curGood.picUrl!=""&& curGood.picUrl!=null)?curGood.picUrl:"../../images/nopic.jpg"}}'></image>
     </view>
     <view class='txt'>
       <view class='h3'>{{curGood.name}}</view>
       <view class='p'>{{curGood.note}}</view>
-      <view class='span'>规格：{{curGood.unit}}    价格：<text>¥ {{curGood.price}}</text> </view>
+      <view class='span'>
+        <view>价格：<text>¥ {{curGood.price}}/{{curGood.unit}}</text></view>
+        <view>计量单位：{{curGood.unit}} </view>
+        <view>规格：{{curGood.specifications}}</view>
+      </view>
     </view>
   </navigator>
 </view>
@@ -105,7 +112,7 @@
           </checkbox-group>
         </view>
       <text>{{item.name}}</text>
-      <text>价格￥{{item.price}}/{{item.specifications}}</text>
+      <text>价格￥{{item.price}}/{{item.unit}}</text>
       <text>{{item.num}}</text>
       <text>￥{{util.formatMoney(item.money)}}</text>
     </view>
@@ -124,6 +131,8 @@
         <view class='text'>
           <!-- 总计  -->
         </view>
+         
       </view>
+      
       <button type='button' value="提交订单" style='border-radius:0;' disabled='{{util.calculateMoney(selectedGoods)==0}}' bindtap='onSubmit'>下单<text>(￥{{util.calculateMoneyAndFormat(selectedGoods)}})</text></button>
     </view>
