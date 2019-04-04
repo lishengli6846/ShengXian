@@ -7,7 +7,7 @@ page{
   padding:0 10px; background: #3275FD; font-size:16px; color:#fff;
   box-sizing: border-box;
 }
-.head text { padding-top:6px;}
+.head text { padding-top:0px;}
 
 .nav-top{
   padding: 0 20rpx;

@@ -10,4 +10,6 @@
     </view>
   </block>
 </view>
+<navigator class='select-addr' url='../../pages/zhuye/zhuye' open-type='switchTab'>返回商品列表</navigator>
+
 <!-- <navigator class='back'>返回</navigator> -->

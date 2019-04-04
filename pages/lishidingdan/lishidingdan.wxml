@@ -1,12 +1,13 @@
         <navigator url="../../pages/zhuye/zhuye" open-type="switchTab">
           <view class="head" style="height:{{heights}}px;padding-top:{{StatusBar}}px;">
-            <text>返回</text>
+            <text style="line-height:{{heights-StatusBar}}px;">返回</text>
           </view>
         </navigator>
 <view class='nav-top'>
   <navigator class='{{curTab=="doing"?"on":""}}' data-tab="doing" bindtap='reloadOrders'>待处理</navigator>
   <navigator class='{{curTab=="done"?"on":""}}' data-tab="done" bindtap='reloadOrders'>已完成</navigator>
   <navigator class='{{curTab=="all"?"on":""}}' data-tab="all" bindtap='reloadOrders'>全部订单</navigator>
+  <navigator class='' style='float:right;'>积分：{{integral}}</navigator>
 </view>
 <view class='b-txt'>
   <view class='item' wx:for="{{orderList}}" wx:key="{{orderNo}}" >

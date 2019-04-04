@@ -53,3 +53,15 @@ textarea{
   text-align: center;
   border-radius: 5rpx;
 }
+.select-addr{
+  width: 710rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #fff;
+  background: #3275FD;
+  font-size: 25rpx;
+  margin: 0 auto;
+  border-radius: 5rpx;
+  margin-bottom: 100rpx;
+}

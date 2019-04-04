@@ -11,6 +11,7 @@ Page({
     pageNum:1,
     pageSize:10,
     total:0,
+    integral:0,
     curTab: 'doing'   //doing待处理 done已完成 close 关闭  all全部
   },
 
@@ -40,6 +41,7 @@ Page({
    */
   onShow: function () {
     this.loadOrders();
+    this.setData({ integral:app.userInfo.integral})
   },
 
   loadOrders: function(){
@@ -111,8 +113,8 @@ Page({
     app.orderDeliveryFee = data.deliveryCash;
     app.orderNeedDelivery = data.deliveryCash>0;
 
-    wx.navigateTo({
-      url: '/pages/querendingdan/querendingdan',
+    wx.switchTab({
+      url: '/pages/zhuye/zhuye',
     })
 
   },

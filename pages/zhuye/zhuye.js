@@ -19,6 +19,8 @@ Page({
     needDelivery: false,
     deliveryFee: 0,
     allowDelivery: false,
+    showModal: false,
+    modelInput:'',
     pageNum:1,
     pageSize:10,
     total:0
@@ -60,11 +62,25 @@ Page({
 
   loadCategoryList: function(re){
     if(re.result){
+      console.log('run into loadCategoryList and returned ok')
       //TODO:未引入分页功能，后台暂无分页参数
       var list = this.data.goods
       re.data.list.forEach(v=>{list.push(v)});
       this.setData({goods:list, pageNum:re.data.pageNum, pageSize:re.data.pageSize, total:re.data.total});
     }
+  },
+
+  /**
+   * 如果是再次购买（全局变量含有订单数据），设置购买信息
+   */
+  setOrderInfoIfBuyAgain: function(){
+    console.log('run into setOrderInfoIfBuyAgain')
+    if(app.orderGoods.length==0){return;}
+    app.orderGoods.forEach(v=>{
+      v.money = v.price*v.num
+      v.isChecked = true
+    })
+    this.setData({selectedGoods:app.orderGoods})
   },
 
   bindCategoryChange:function(e){
@@ -232,12 +248,13 @@ Page({
     // 手机号提示
 
 
-    if (!app.defaultAddress.phone) {
+    if (!app.userInfo.phone) {
       wx.showToast({
-        title: '您未绑定手机号！请设置默认地址并绑定手机号',
+        title: '请先绑定手机号！',
         icon: 'none'
       })
-     // return;
+      this.showDialogBtn()
+      return;
     }
 
 
@@ -273,6 +290,7 @@ Page({
     wx.hideTabBar({
     })
     if (app.searchKeyword == '') {
+      this.setOrderInfoIfBuyAgain();
       //判断分类无变化且已有数据，不再重复加载
       if(this.data.categoryId == app.categoryId && this.data.goods.length>0){return;}
       this.data.categoryId = app.categoryId
@@ -280,7 +298,7 @@ Page({
       app.request('/customer/goods/list', 'post', {
         openId: app.openid, categoryId: this.data.categoryId != -1 ? this.data.categoryId : null, pageNum: this.data.pageNum,
         pageSize: this.data.pageSize }, this.loadCategoryList)
-    } else {
+    }else {
       app.request('/customer/goods/names', 'post', { openId: app.openid, names: app.searchKeyword }, this.loadSearchResult)
       wx.getStorage({
         key: 'recentSearches',
@@ -344,5 +362,53 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  /**
+     * 弹窗
+     */
+  showDialogBtn: function () {
+
+    this.setData({
+      showModal: true
+    })
+  },
+  /**
+   * 弹窗输入事件
+   */
+  modelInputChange:function(e){
+    this.data.modelInput = e.detail.value;
+  },
+  /**
+   * 弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function () {
+  },
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    });
+  },
+  /**
+   * 对话框取消按钮点击事件
+   */
+  onCancel: function () {
+    this.hideModal();
+  },
+  /**
+   * 对话框确认按钮点击事件
+   */
+  onConfirm: function () {
+    //提交手机号
+    app.userInfo.phone = this.data.modelInput
+    app.sendUserPosition()
+    wx.showToast({
+      title: '提交成功',
+      icon: 'success',
+      duration: 2000
+    })
+    this.hideModal();
   }
 })

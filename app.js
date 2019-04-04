@@ -1,19 +1,20 @@
 //app.js
 App({
-  baseUrl: 'http://47.74.247.133:8083',
+  baseUrl: 'https://mini.mlm2019jj.com',
   openid: wx.getStorageSync('openid') || null,
   searchKeyword: '',
   sessionId: null,
   orderGoods:[],
   categoryId:-1,
+  userInfo:{
+    integral:0,
+    openId:'',
+    phone:'',
+    wxName:''
+  },
   defaultAddress: { addressId: -1, name: "", phone: "", address: ""},
   tmp:{},
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     wx.hideTabBar({
     })
 
@@ -45,6 +46,7 @@ App({
                   data: that.openid,
                 })
                 that.sendUserPosition();
+                that.getUserInfo();
               }else{
                 console.log(re);
                 wx.showToast({title:'自动登录失败',icon:'none'});          
@@ -80,20 +82,22 @@ App({
       }
     })
     //获取默认地址
-    var that = this;
-    this.request('/customer/address/list', 'post', { pageNum: 1, pageSize: 100, search: { openId: this.openid } }, function (re) {
-      console.log(re)
-      re.data.list.forEach(v => {
-        if (v.status == '10') {
-          that.defaultAddress = {
-            addressId: v.addressId,
-            name: v.consigneeName,
-            phone: v.consigneePhone,
-            address: v.address
-          }
-        }
-      });
-    })
+    // var that = this;
+    // this.request('/customer/address/list', 'post', { pageNum: 1, pageSize: 100, search: { openId: this.openid } }, function (re) {
+    //   console.log(re)
+    //   re.data.list.forEach(v => {
+    //     if (v.status == '10') {
+    //       that.defaultAddress = {
+    //         addressId: v.addressId,
+    //         name: v.consigneeName,
+    //         phone: v.consigneePhone,
+    //         address: v.address
+    //       }
+    //     }
+    //   });
+    // })
+    //获取用户信息
+    this.getUserInfo();
 
     // 获取系统状态栏信息
     wx.getSystemInfo({
@@ -119,11 +123,24 @@ App({
         that.request('/customer/user/miniprogram/syncAddress','post',{
           openId:that.openid,
           longitude: longitude,
-          latitude: latitude
+          latitude: latitude,
+          phone:that.userInfo.phone,
+          wxName:''
         },function(){})
       }
     })
   },
+
+  getUserInfo: function(){
+    if(this.openid==null){return;}
+    var that = this
+    this.request('/customer/user/get','post',{openId:this.openid},function(re){
+      if(re.result){
+        that.userInfo = re.data
+      }
+    },'application/x-www-form-urlencoded')
+  },
+
   globalData: {
     userInfo: null
   },

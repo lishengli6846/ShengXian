@@ -10,7 +10,7 @@ Page({
   data: {
     showRemarkBtn: true,
     needDelivery: false,
-    showModal:true,
+    showModal:false,
     deliveryFee: 0,
     orderNo:'',
     address:{
@@ -178,6 +178,9 @@ Page({
       if (re.result) {
         that.data.orderNo = re.data;
         that.loadOrderDetail(re.data);  //data中的值是单号
+        app.orderGoods=[];  //下单成功后删除缓存的订单信息
+        app.orderDeliveryFee=0;
+        app.orderNeedDelivery=0;
       } else {
         wx.showToast({
           title: re.message,

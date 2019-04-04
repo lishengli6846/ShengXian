@@ -19,6 +19,7 @@
 }
 .info .txt{
   color: #fff;
+  word-break: break-all;
 }
 .info navigator{
   color: #fff;
