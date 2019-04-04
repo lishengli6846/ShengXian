@@ -78,7 +78,7 @@
       <view class='h3'>{{curGood.name}}</view>
       <view class='p'>{{curGood.note}}</view>
       <view class='span'>
-        <view>价格：<text>¥ {{curGood.price}}/{{curGood.unit}}</text></view>
+        <view>价格：<text>¥ {{curGood.price}}</text></view>
         <view>计量单位：{{curGood.unit}} </view>
         <view>规格：{{curGood.specifications}}</view>
       </view>
@@ -102,10 +102,10 @@
   </view>
 </view>
 <view class='check-good' wx:if="{{selectedGoods.length>0}}">
-  <view wx:for="{{selectedGoods}}" data-index='{{index}}'>
+  <view wx:for="{{selectedGoods}}" data-index='{{index}}' data-id="{{item.goodsId}}" bindtap="showpro">
     <view class='line'>
       <view class='checks'>
-            <checkbox-group bindchange="selectedGoodCheckboxChange" data-index="{{index}}" >
+            <checkbox-group bindchange="selectedGoodCheckboxChange" data-index="{{index}}">
               <label>
                   <checkbox checked="{{item.isChecked}}"></checkbox>
               </label>   

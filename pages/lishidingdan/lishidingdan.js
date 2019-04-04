@@ -19,6 +19,7 @@ Page({
    */
   onLoad: function (options) {
     this.loadOrders();
+    this.setData({ heights: app.globalData.CustomBar, StatusBar: app.globalData.StatusBar })
   },
 
   /**
@@ -98,7 +99,8 @@ Page({
         wx.showToast({
           title: '确认成功',
         })
-        that.updateOrderStatusByNo(e.currentTarget.dataset.orderno, '600')
+        that.updateOrderStatusByNo(e.currentTarget.dataset.orderno, '700')
+        
       }
     })
   },

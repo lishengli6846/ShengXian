@@ -1,5 +1,5 @@
         <navigator url="../../pages/zhuye/zhuye" open-type="switchTab">
-          <view class="head">
+          <view class="head" style="height:{{heights}}px;padding-top:{{StatusBar}}px;">
             <text>返回</text>
           </view>
         </navigator>

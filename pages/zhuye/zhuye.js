@@ -115,6 +115,25 @@ Page({
     })
   },
 
+  showpro:function(data){
+    var id = data.currentTarget.dataset.id;
+    if (id) {
+      var good = this.getItemFromSelectedGoods(id);
+      console.log(good)
+      if (good == null) {
+        good = this.data.goods[index];
+        this.data.curNum = 0;
+        this.data.curAmount = 0;
+        good.num = 0;
+        good.money = 0;
+      } else {
+        this.data.curNum = good.num
+        this.data.curAmount = good.money
+      }
+      this.setData({ curGood: good, curNum: this.data.curNum, curAmount: this.data.curAmount, scrollHeight: '480rpx' })
+    }
+  },
+
   curNumPlus:function(){
     var num = this.data.curNum + 1;
     this.setData({curNum:num,curAmount:this.data.curGood.price*num});
@@ -210,15 +229,19 @@ Page({
       return;
     }
 
-    
+    // 手机号提示
+
 
     if (!app.defaultAddress.phone) {
       wx.showToast({
         title: '您未绑定手机号！请设置默认地址并绑定手机号',
         icon: 'none'
       })
-      return;
+     // return;
     }
+
+
+
     wx.navigateTo({
       url: '/pages/querendingdan/querendingdan',
     })
