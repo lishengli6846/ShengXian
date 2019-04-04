@@ -141,6 +141,9 @@ Page({
     for(var i=0;i<this.data.orderList.length;i++){
       if(this.data.orderList[i].orderNo == orderNo){
         this.data.orderList[i].orderStatus = status;
+        if(status=='700'){
+          this.data.orderList.splice(i,1);
+        }
         break;
       }
     }
