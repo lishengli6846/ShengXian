@@ -105,6 +105,7 @@ Page({
                 color: 1
               },
               remark: re.data.remark,
+              remind: re.data.remind,
               deliveryId: 0,
               shopAddressId: 0,
               orderStatus:re.data.orderStatus,

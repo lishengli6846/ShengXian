@@ -31,17 +31,17 @@
       </view>
       <view class='line'>
         <text class='tit'>摘要：</text>
-        <text class='txt'>{{item.note}}</text>
+        <text class='txt' style='{{item.tag?"font-weight:bold;":""}}'>{{item.note}}</text>
       </view>
-      <view class='line' wx:if="{{item.deliveryCash}}">
-        <text class='tit'>配送地址：</text>
+      <view class='line' wx:if="{{item.orderStatus=='100'}}">
+        <text class='tit'>自提地址：</text>
         <text class='txt'>{{item.address==null?"":item.address}}</text>
       </view>
     </view>
     <view class='a-grop'>
-        <navigator wx:if="{{false}}">取消配送</navigator>
-        <navigator wx:if="{{false}}">转为配送</navigator>
-        <navigator wx:if="{{item.orderStatus=='100'}}" bindtap='closeOrder' data-orderNo="{{item.orderNo}}">关闭订单</navigator>
+        <navigator wx:if="{{item.orderStatus=='100'}}" bindtap='switchDelivery' data-orderNo="{{item.orderNo}}">转为配送</navigator>
+        <navigator wx:if="{{item.orderStatus=='200'}}" bindtap='switchSelfFetch' data-orderNo="{{item.orderNo}}">转为自提</navigator>
+        <navigator wx:if="{{item.orderStatus=='100'||item.orderStatus=='200'}}" bindtap='closeOrder' data-orderNo="{{item.orderNo}}">关闭订单</navigator>
         <navigator wx:if="{{item.orderStatus!='600' && item.orderStatus!='700'}}" bindtap='confirmDone' data-orderNo="{{item.orderNo}}">确认完成</navigator>
         <navigator class='buy' bindtap='buyAgain' data-orderNo="{{item.orderNo}}">再次购买</navigator>
     </view>

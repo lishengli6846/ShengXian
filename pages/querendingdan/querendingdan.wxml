@@ -43,13 +43,13 @@
         </view>
       </block>
     </view>
+    <view style='font-size:30rpx;text-align:center;color:#f00;'>自提提醒</view>
     <view class='item item-help'>
       <button class='shareButton' wx:if="{{showRemarkBtn}}" bindtap='onRemark'>留言</button>
       <navigator url='/pages/bangzhuye/bangzhuye' open-type="switchTab">帮助</navigator>
     </view>
-    <textarea focus='{{remarkFocus}}' bindinput='remarkInput' value='{{order.remark}}' placeholder-class='plc-area' placeholder='留言'>
-
-    </textarea>
+    <textarea focus='{{remarkFocus}}' bindinput='remarkInput' value='{{order.remark}}' placeholder-class='plc-area' placeholder='留言'>    </textarea>
+    <view style='font-size:24rpx;padding:10rpx 20rpx;'>客服回复：{{order.remind}}</view>
     <view class='bottom' wx:if="{{false}}">
       <view class='left'>
         <view class='checks' wx:if="{{false}}">

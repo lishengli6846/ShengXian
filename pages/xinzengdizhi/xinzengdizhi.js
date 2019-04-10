@@ -41,6 +41,9 @@ Page({
     app.request('/customer/address/administrative/list','post',{openId: app.openid},function(re){
       if(re.result){
         that.setData({addressList : re.data})
+        if(re.data.length>0){
+          that.setData({ addressShengShiQu: re.data[0].administrativeName})
+        }
       }
     })
   },

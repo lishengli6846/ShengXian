@@ -65,6 +65,25 @@ Page({
       }
     })
   },
+  /**
+   * 更新订单信息
+   */
+  updateOrder: function (orderNo) {
+    var that = this
+    app.request('/customer/order/list', 'post', {
+      search: {
+        openId: app.openid,
+        orderNo: orderNo
+      }
+    }, function (re) {
+      console.log(re)
+      if (re.result) {
+        re.data.list.forEach(v => {
+          that.updateOrderByNo(v)
+        })
+      }
+    })
+  },
 
   reloadOrders: function(e){
     this.data.orderList = [];
@@ -73,6 +92,40 @@ Page({
     this.data.total = 0
     this.setData({curTab: e.currentTarget.dataset.tab})
     this.loadOrders();  
+  },
+
+  switchDelivery: function(e){
+    var orderNo = e.currentTarget.dataset.orderno
+    var that = this
+    app.request('/customer/order/delivery/confirm','post',{
+      openId: app.openid,
+      orderNo: orderNo,
+      deliveryStatus: '200'
+    },function(re){
+      if(re.result){
+        wx.showToast({
+          title: '已转为配送',
+        })
+        that.updateOrder(orderNo)
+      }
+    })
+  },
+
+  switchSelfFetch: function(e){
+    var orderNo = e.currentTarget.dataset.orderno
+    var that = this
+    app.request('/customer/order/delivery/confirm', 'post', {
+      openId: app.openid,
+      orderNo: orderNo,
+      deliveryStatus: '100'
+    }, function (re) {
+      if (re.result) {
+        wx.showToast({
+          title: '已转为自提',
+        })
+        that.updateOrder(orderNo)
+      }
+    })
   },
 
   buyAgain: function(e){
@@ -154,6 +207,16 @@ Page({
     this.setData({orderList:this.data.orderList})
   },
 
+  updateOrderByNo: function (newOrderData) {
+    for (var i = 0; i < this.data.orderList.length; i++) {
+      if (this.data.orderList[i].orderNo == newOrderData.orderNo) {
+        this.data.orderList[i] = newOrderData;
+        break;
+      }
+    }
+    this.setData({ orderList: this.data.orderList })
+  },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */

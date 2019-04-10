@@ -151,21 +151,25 @@ Page({
   },
 
   curNumPlus:function(){
+    if(this.data.curGood.stock<=0) return;
     var num = this.data.curNum + 1;
     this.setData({curNum:num,curAmount:this.data.curGood.price*num});
     this.updateOrderList();
   },
   curNumReduce: function () { 
+    if (this.data.curGood.stock <= 0) return;
     var num = (this.data.curNum - 1 > 0 ? this.data.curNum - 1 : 0);
     this.setData({ curNum: num, curAmount: this.data.curGood.price * num});
     this.updateOrderList();
   },
   curNumEdited: function (event) { 
+    if (this.data.curGood.stock <= 0) return;
     var num = event.detail.value;
     this.setData({ curNum: num, curAmount: this.data.curGood.price * num });
     this.updateOrderList();
   },
   curAmountPlus: function () { 
+    if (this.data.curGood.stock <= 0) return;
     var am = this.data.curAmount + 10;
     var num = Math.ceil(am/this.data.curGood.price);
     am = num*this.data.curGood.price;
@@ -173,6 +177,7 @@ Page({
     this.updateOrderList();
   },
   curAmountReduce: function () {
+    if (this.data.curGood.stock <= 0) return;
     var am = this.data.curAmount - 10 > 0 ? this.data.curAmount - 10 : 0;
     var num = Math.ceil(am / this.data.curGood.price);
     am = num * this.data.curGood.price;
@@ -180,6 +185,7 @@ Page({
     this.updateOrderList();
   },
   curAmountEdited: function (event) {
+    if (this.data.curGood.stock <= 0) return;
     var am = event.detail.value;
     var num = Math.ceil(am / this.data.curGood.price);
     am = num * this.data.curGood.price;

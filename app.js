@@ -84,6 +84,7 @@ App({
     //获取默认地址
     // var that = this;
     // this.request('/customer/address/list', 'post', { pageNum: 1, pageSize: 100, search: { openId: this.openid } }, function (re) {
+    //   console.log('/customer/address/list')
     //   console.log(re)
     //   re.data.list.forEach(v => {
     //     if (v.status == '10') {
@@ -96,6 +97,7 @@ App({
     //     }
     //   });
     // })
+    
     //获取用户信息
     this.getUserInfo();
 
