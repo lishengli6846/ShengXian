@@ -113,22 +113,24 @@ Page({
       this.setData({curGood: good, curNum:this.data.curNum, curAmount:this.data.curAmount, scrollHeight:'480rpx'})
     }
 
-    //计算运费(目前只适配是否启用配送功能)
-    var detail = [];
-    var that = this;
-    this.data.selectedGoods.forEach(v => {
-      detail.push({ cash: v.price * v.num, goodsId: v.goodsId + '', num: v.num })
-    })
-    app.request('/customer/order/delivery/cash', 'post', {
-      addressId: 1,
-      detail: detail,
-      openId: app.openid
-    }, function (e) {
-      console.log(e);
-      if (e.result) {
-        that.setData({ allowDelivery: e.data.allow, deliveryFee: e.data.deliveryCash })
-      }
-    })
+    if(this.data.allowDelivery){
+      //计算运费(目前只适配是否启用配送功能)
+      var detail = [];
+      var that = this;
+      this.data.selectedGoods.forEach(v => {
+        detail.push({ cash: v.price * v.num, goodsId: v.goodsId + '', num: v.num })
+      })
+      app.request('/customer/order/delivery/cash', 'post', {
+        addressId: 1,
+        detail: detail,
+        openId: app.openid
+      }, function (e) {
+        console.log(e);
+        if (e.result) {
+          that.setData({ allowDelivery: e.data.allow, deliveryFee: e.data.deliveryCash })
+        }
+      })
+    }
   },
 
   showpro:function(data){

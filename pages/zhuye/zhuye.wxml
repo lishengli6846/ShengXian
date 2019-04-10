@@ -82,7 +82,7 @@
         <view>价格：<text>¥ {{curGood.price}}</text></view>
         <view wx:if="{{false}}">计量单位：{{curGood.unit}} </view>
         <view>规格：{{curGood.specifications}}</view>
-        <view wx:if="{{curGood.stock<=0}}">库存不足</view>
+        <view wx:if="{{curGood.stock<=0}}" style="color:#f00;">库存不足</view>
       </view>
     </view>
   </navigator>
@@ -92,13 +92,13 @@
     <view class='item left'>
       数量
       <text class='' bindtap='curNumPlus' style="{{curGood.stock<=0?'background:gray;':''}}">+</text>
-      <input type='text' value='{{curNum}}' bindconfirm="curNumEdited" style="{{curGood.stock<=0?'background:gray;':''}}"></input>
+      <input type='text' value='{{curNum}}' disabled='{{curGood.stock<=0}}' bindconfirm="curNumEdited" style="{{curGood.stock<=0?'background:gray;':''}}"></input>
       <text bindtap='curNumReduce' style="{{curGood.stock<=0?'background:gray;':'background:#f00;'}}">-</text>
     </view>
     <view class='item right'>
       金额
       <text class='' bindtap='curAmountPlus' style="{{curGood.stock<=0?'background:gray;':''}}">+</text>
-      <input type='text' value='{{util.formatMoney(curAmount)}}' bindconfirm='curAmountEdited' style="{{curGood.stock<=0?'background:gray;':''}}"></input>
+      <input type='text' value='{{util.formatMoney(curAmount)}}' disabled='{{curGood.stock<=0}}' bindconfirm='curAmountEdited' style="{{curGood.stock<=0?'background:gray;':''}}"></input>
       <text bindtap='curAmountReduce' style="{{curGood.stock<=0?'background:gray;':'background:#f00;'}}">-</text>
     </view>
   </view>
