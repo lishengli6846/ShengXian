@@ -23,7 +23,8 @@ Page({
     modelInput:'',
     pageNum:1,
     pageSize:10,
-    total:0
+    total:0,
+    searchKeyword:'搜索'
   },
   
   /**
@@ -86,7 +87,7 @@ Page({
   bindCategoryChange:function(e){
     app.categoryId = this.data.categorys[e.detail.value].id
     app.searchKeyword=''
-    this.setData({categoryIndex:e.detail.value})
+    this.setData({categoryIndex:e.detail.value,pageNum:1,pageSize:10})
     this.onShow();
   },
 
@@ -241,17 +242,33 @@ Page({
 
   onSubmit: function(){
     console.log(this.data.selectedGoods)
-    app.orderGoods = this.data.selectedGoods;
-    app.orderDeliveryFee = this.data.deliveryFee;
-    app.orderNeedDelivery = this.data.needDelivery;
-
-    if(this.data.selectedGoods.length==0){
+    if (this.data.selectedGoods.length == 0) {
       wx.showToast({
         title: '您尚未选择任何商品',
         icon: 'none'
       })
       return;
     }
+
+   //检查所选商品库存（防止点再次购买，买到库存不足的商品）
+    var isLessStock=false, msg=''
+    this.data.selectedGoods.forEach(g=>{
+      if(g.stock=null || g.num>g.stock){
+          msg = g.name+'库存不足'
+          isLessStock = true
+      }
+    })
+    if(isLessStock){
+      wx.showToast({
+        title: msg,
+        icon: 'none'
+      })
+      return;
+    }
+
+    app.orderGoods = this.data.selectedGoods;
+    app.orderDeliveryFee = this.data.deliveryFee;
+    app.orderNeedDelivery = this.data.needDelivery;
 
     // 手机号提示
 
@@ -300,14 +317,15 @@ Page({
     if (app.searchKeyword == '') {
       this.setOrderInfoIfBuyAgain();
       //判断分类无变化且已有数据，不再重复加载
-      if(this.data.categoryId == app.categoryId && this.data.goods.length>0){return;}
+      // if(this.data.categoryId == app.categoryId && this.data.goods.length>0){return;}
       this.data.categoryId = app.categoryId
       this.data.goods=[]  //clear goods data
       app.request('/customer/goods/list', 'post', {
         openId: app.openid, categoryId: this.data.categoryId != -1 ? this.data.categoryId : null, pageNum: this.data.pageNum,
         pageSize: this.data.pageSize }, this.loadCategoryList)
     }else {
-      app.request('/customer/goods/names', 'post', { openId: app.openid, names: app.searchKeyword }, this.loadSearchResult)
+      this.setData({ searchKeyword: app.searchKeyword})
+      app.request('/customer/goods/names', 'post', { openId: app.openid, names: app.searchKeyword }, this.loadSearchResult, 'application/x-www-form-urlencoded')
       wx.getStorage({
         key: 'recentSearches',
         success: function (res) {
@@ -324,6 +342,7 @@ Page({
             key: 'recentSearches',
             data: data,
           })
+          app.searchKeyword=''  //清空搜索关键词，防止一直是搜索模式
         },
       })
     }
@@ -339,6 +358,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    this.setData({ searchKeyword:'搜索'})  //切换页面时清空搜索结果
     // wx.showTabBar({
       
     // })

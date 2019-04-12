@@ -23,6 +23,17 @@ Page({
     this.setData({ heights: app.globalData.CustomBar, StatusBar: app.globalData.StatusBar })
   },
 
+  clearData: function(){
+    this.setData({
+      orderList: [],
+      pageNum: 1,
+      pageSize: 10,
+      total: 0,
+      integral: 0,
+      curTab: 'doing'
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -40,6 +51,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.clearData();
     this.loadOrders();
     this.setData({ integral:app.userInfo.integral})
   },

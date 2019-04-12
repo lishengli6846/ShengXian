@@ -16,7 +16,7 @@
         <navigator url="../../pages/sousuo/sousuo">
           <view class="con">
             <icon class="searchcion" size='16' type='search'></icon>
-            <text>海鲜水产</text>
+            <text>{{searchKeyword}}</text>
           </view>
         </navigator>
       </view>
@@ -52,7 +52,7 @@
           </navigator>
       </view>
       <!-- {{pageSize*pageNum<total}} 控制更多按钮显示-->
-      <view wx:if="{{true}}">
+      <view wx:if="{{searchKeyword=='搜索'}}">
         <navigator>
           <view class='item' bindtap='loadNextPage'>
             <view class="con">
