@@ -253,7 +253,7 @@ Page({
    //检查所选商品库存（防止点再次购买，买到库存不足的商品）
     var isLessStock=false, msg=''
     this.data.selectedGoods.forEach(g=>{
-      if(g.stock=null || g.num>g.stock){
+      if(g.isChecked && (g.stock=null || g.num>g.stock)){
           msg = g.name+'库存不足'
           isLessStock = true
       }
@@ -314,7 +314,7 @@ Page({
   onShow: function () {
     wx.hideTabBar({
     })
-    if (app.searchKeyword == '') {
+    if (app.searchKeyword == '' || app.searchKeyword == '搜索') {
       this.setOrderInfoIfBuyAgain();
       //判断分类无变化且已有数据，不再重复加载
       // if(this.data.categoryId == app.categoryId && this.data.goods.length>0){return;}
