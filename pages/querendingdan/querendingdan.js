@@ -122,10 +122,15 @@ Page({
         title: '正在处理',
       })
       //从全局参数取商品信息
-      this.data.goods = app.orderGoods;
+      this.data.goods=[]
+      app.orderGoods.forEach(g=>{
+        if(g.isChecked){
+          this.data.goods.push(g)
+        }
+      })
       this.data.needDelivery = app.orderNeedDelivery;
       this.data.deliveryFee = app.orderDeliveryFee;
-      this.setData({ goods: app.orderGoods })
+      this.setData({ goods: this.data.goods })
       //获取默认地址
       var that = this;
       app.request('/customer/address/list', 'post', { pageNum: 1,pageSize:100, search: { openId: app.openid } }, function (re) {

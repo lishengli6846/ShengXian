@@ -253,7 +253,7 @@ Page({
    //检查所选商品库存（防止点再次购买，买到库存不足的商品）
     var isLessStock=false, msg=''
     this.data.selectedGoods.forEach(g=>{
-      if(g.isChecked && (g.stock=null || g.num>g.stock)){
+      if(g.isChecked && (g.stock==null || g.num>g.stock)){
           msg = g.name+'库存不足'
           isLessStock = true
       }
